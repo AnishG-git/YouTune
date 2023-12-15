@@ -1,0 +1,12 @@
+# .gitignore
+
+/migrations/
+/project/__pycache__/
+/api/__pycache__
+/api/migrations/
+/venv
+/media
+*.pyc
+*.pyo
+*.pyd
+.vscode
