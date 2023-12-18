@@ -1,13 +1,14 @@
-# .gitignore
+# .gitignore Django
+/YouTune-Django/migrations/
+/YouTune-Django/project/__pycache__/
+/YouTune-Django/api/__pycache__
+/YouTune-Django/api/migrations/
+/YouTune-Django/venv
+/YouTune-Django/media
+/YouTune-Django*.pyc
+/YouTune-Django*.pyo
+/YouTune-Django*.pyd
+/YouTune-Django/.vscode
+/YouTune-Django/.env
 
-/migrations/
-/project/__pycache__/
-/api/__pycache__
-/api/migrations/
-/venv
-/media
-*.pyc
-*.pyo
-*.pyd
-.vscode
-.env
+# .gitignore Electron

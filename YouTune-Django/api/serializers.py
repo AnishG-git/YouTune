@@ -5,7 +5,7 @@ class SongSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
         # took out 'audio_url' element
-        fields = ['id', 'title', 'url', 'duration', 'songwriter', 'position']
+        fields = ['id', 'title', 'url', 'audio_url', 'duration', 'songwriter', 'position']
 
 class PlaylistSerializer(serializers.ModelSerializer):
     songs = SongSerializer(source='song_set', many=True, read_only=True)
