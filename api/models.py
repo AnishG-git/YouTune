@@ -26,7 +26,7 @@ class Song(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200, blank=False)
     url = models.URLField(blank=False)
-    # audio_url = models.URLField(blank=True, max_length=1000)
+    audio_url = models.URLField(blank=True, max_length=1000)
     audio = models.FileField(upload_to=user_song_upload_path(AppUser, title), blank=True, null=True)
     duration = models.IntegerField()
     songwriter = models.CharField(max_length=100)

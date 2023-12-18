@@ -1,22 +1,25 @@
+from functools import wraps
 from pytube import YouTube
 from django.conf import settings
 from rest_framework.response import Response
+import asyncio
 import os
 
 def get_song_info(video_url):
     try:
         # Create a YouTube object
         yt = YouTube(video_url)
+        audio_stream = yt.streams.filter(only_audio=True).order_by("abr")[-1]
         song_info = {
             "duration": yt.length,
             "uploader": yt.author,
+            "audio_url": audio_stream.url,
             "title": yt.title
         }
         return song_info
     except Exception as e:
         print("Error:", e)
         return None
-    
 
 def get_filename(video_url):
     start_index = video_url.find('=')

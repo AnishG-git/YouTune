@@ -10,3 +10,4 @@
 *.pyo
 *.pyd
 .vscode
+.env

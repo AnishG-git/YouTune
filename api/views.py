@@ -13,6 +13,9 @@ from .song_info import get_song_info, download_song
 from .serializers import AppUserSerializer
 from .helpers import create_user_directories
 from django.conf import settings
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # sign up function
 @api_view(['POST'])
@@ -93,7 +96,7 @@ def delete_playlist(request):
 def search_youtube(request):
     try:
         query = request.data.get('query')                           # youtube query
-        api_key = ""         # api key for youtube data api
+        api_key = os.environ.get('YT_API_KEY')                      # api key for youtube data api
         youtube = build('youtube', 'v3', developerKey=api_key)
         search_response = youtube.search().list(
             q=query,
@@ -105,18 +108,12 @@ def search_youtube(request):
         for item in search_response.get('items', []):               # looping through search results and gathering info
             video_id = item['id']['videoId']
             url=f'https://www.youtube.com/watch?v={video_id}'
-            # test
-            split_parts = url.split('=')
-            vid_id = split_parts[-1].split('&')[0]
-            print(vid_id)
-            #
-            print(video_id)
             song_info = get_song_info(video_url=url)
             songs.append(
                 {
                 "title": song_info["title"],
                 "url": url,
-                #"audio_url": song_info["audio_url"], 
+                "audio_url": song_info["audio_url"], 
                 "duration": song_info["duration"], 
                 "author": song_info["uploader"]
                 }
@@ -140,6 +137,7 @@ def add_to_playlist(request):
                 user=user,
                 title=song_info["title"], 
                 url=url,
+                audio_url = song_info["audio_url"],
                 duration=song_info["duration"], 
                 songwriter=song_info["uploader"],
                 position=num_songs+1,
