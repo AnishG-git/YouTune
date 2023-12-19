@@ -103,32 +103,35 @@ def search_youtube(request):
         search_response = youtube.search().list(
             q=query,
             type='video',
-            part='id,snippet',
-            maxResults=8
+            part='id',
+            maxResults=6
         ).execute()                                                 # executing search with query
         songs = []                                                  # array that will hold songs and their info
         for item in search_response.get('items', []):               # looping through search results and gathering info
-            video_id = item['id']['videoId']
-            video_response = youtube.videos().list(
-                id=video_id,
-                part='contentDetails'
-            ).execute()
-            iso_duration = video_response['items'][0]['contentDetails']['duration']
-            duration = int(parse_duration(iso_duration).total_seconds())
-            if duration < MAX_DURATION:
-                url=f'https://www.youtube.com/watch?v={video_id}'
-                song_info = get_song_info(video_url=url)
-                songs.append(
-                    {
-                    "title": song_info["title"],
-                    "url": url,
-                    "audio_url": song_info["audio_url"], 
-                    "duration": duration, 
-                    "author": song_info["uploader"]
-                    }
-                )
-            if len(songs) is 0:
-                return Response({"message": "duration of results too long, no search results"}, status=status.HTTP_200_OK)
+            try:
+                video_id = item['id']['videoId']
+                video_response = youtube.videos().list(
+                    id=video_id,
+                    part='contentDetails'
+                ).execute()
+                iso_duration = video_response['items'][0]['contentDetails']['duration']
+                duration = int(parse_duration(iso_duration).total_seconds())
+                if duration < MAX_DURATION:
+                    url=f'https://www.youtube.com/watch?v={video_id}'
+                    song_info = get_song_info(video_url=url)
+                    songs.append(
+                        {
+                        "title": song_info["title"],
+                        "url": url,
+                        "audio_url": song_info["audio_url"], 
+                        "duration": duration, 
+                        "author": song_info["uploader"]
+                        }
+                    )
+            except:
+                print(f'Error playing: https://www.youtube.com/watch?v={video_id}')
+        if len(songs) == 0:
+            return Response({"message": "duration of results too long, no search results"}, status=status.HTTP_200_OK)
         return Response(songs, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
