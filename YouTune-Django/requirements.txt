@@ -5,3 +5,4 @@ whitenoise
 google-api-python-client
 pytube
 python-dotenv
+isodate
