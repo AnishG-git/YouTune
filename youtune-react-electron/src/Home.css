@@ -1,0 +1,69 @@
+/* Home.css */
+
+/* Reset some default browser styles */
+body, h1, p, ul, li {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Set a background color for the body */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+  }
+  
+  /* Style the home container */
+  .home-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Style the header */
+  .header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* Style the main section */
+  .main-section {
+    padding: 20px;
+  }
+  
+  /* Style the search form */
+  .search-form {
+    display: flex;
+    margin-top: 20px;
+  }
+  
+  .search-form input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .search-form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .search-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive design */
+  @media only screen and (max-width: 600px) {
+    .header {
+      padding: 10px;
+    }
+  
+    .main-section {
+      padding: 10px;
+    }
+  }
+  
