@@ -12,3 +12,23 @@
 /YouTune-Django/.env
 
 # .gitignore Electron
+/youtune-react-electron/node_modules
+/youtune-react-electron/.pnp
+/youtune-react-electron/.pnp.js
+
+# testing
+/youtune-react-electron/coverage
+
+# production
+/youtune-react-electron/build
+
+# misc
+/youtune-react-electron/.DS_Store
+/youtune-react-electron/.env.local
+/youtune-react-electron/.env.development.local
+/youtune-react-electron/.env.test.local
+/youtune-react-electron/.env.production.local
+
+/youtune-react-electron/npm-debug.log*
+/youtune-react-electron/yarn-debug.log*
+/youtune-react-electron/yarn-error.log*

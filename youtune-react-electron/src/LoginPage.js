@@ -33,7 +33,7 @@ const LoginPage = () => {
       
             // Perform any further actions based on the result
             console.log('Login successful, Token: ', result['token']);
-            setErrorMessage('Token: ', result['token']);
+            setErrorMessage("Logged in Successfully");
           } catch (error) {
             console.error('Error during login:', error);
             setErrorMessage('Login failed. Please try again.');
