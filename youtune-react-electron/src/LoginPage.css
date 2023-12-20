@@ -50,12 +50,14 @@ body {
   
   .error-message {
     color: red;
-    margin-top: 15px;
+    margin-top: 5px;
+    margin-bottom: 18px;
   }
 
   .success-message{
     color: green;
-    margin-top: 15px;
+    margin-top: 5px;
+    margin-bottom: 18px;
   }
   
   button {
