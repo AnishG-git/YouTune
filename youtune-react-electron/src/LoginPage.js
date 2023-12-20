@@ -1,12 +1,15 @@
 // LoginPage.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
+  const navigate = useNavigate();
   const handleLogin = async () => {
     // Simple validation
     if (!username || !password) {
@@ -33,10 +36,13 @@ const LoginPage = () => {
       
             // Perform any further actions based on the result
             console.log('Login successful, Token: ', result['token']);
-            setErrorMessage("Logged in Successfully");
+            setSuccessMessage("Logged in Successfully");
+            setErrorMessage('');
+            navigate('/homepage');
           } catch (error) {
             console.error('Error during login:', error);
             setErrorMessage('Login failed. Please try again.');
+            setSuccessMessage(''); 
           }
     }
   };
@@ -64,6 +70,7 @@ const LoginPage = () => {
           />
         </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
         <button type="button" onClick={handleLogin}>
           Login
         </button>
