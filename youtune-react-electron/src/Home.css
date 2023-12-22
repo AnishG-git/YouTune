@@ -18,9 +18,11 @@
     background-color: #000000d4;
     height: auto;
     min-height: 100vh;
-    width: 100vw;
+    min-width: 100vw;
+    /* width: 100vw; */
     position: relative;
     overflow-y: auto;
+    overflow-x: scroll;
   }
   
   .frame .login-frame {
@@ -70,10 +72,16 @@
     padding: 11px 50px;
     position: absolute;
     top: 730px;
+    cursor: pointer;
+    transition: 0.5s;
   }
   
+  .frame .register-frame:hover {
+    background-color: white;
+  } 
+
   .frame .text-wrapper-2 {
-    color: #ffffff;
+    color: black;
     font-family: "Outfit", Helvetica;
     font-size: 36px;
     font-weight: 600;
@@ -239,7 +247,7 @@
     justify-content: center;
     left: 194px;
     padding: 10px;
-    position: absolute;
+    position: relative;
     top: 0;
   }
   

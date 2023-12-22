@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import Modal from './Modal';
 // Import necessary dependencies
 
 export const Home = () => {
@@ -8,6 +9,8 @@ export const Home = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+    // Necessary registration functions;
   
     const navigate = useNavigate();
     const handleLogin = async () => {
@@ -52,10 +55,10 @@ export const Home = () => {
         <div className="login-frame" onClick={handleLogin}>
           <div className="text-wrapper">Login</div>
         </div>
-        
-        <div className="register-frame">
+        <div className="register-frame" onClick={setModalOpen}>
           <div className="text-wrapper-2">Register</div>
         </div>
+        {modalOpen && <Modal setOpenModal={setModalOpen} />}
         <div className="you-tune-wrapper">
           <p className="you-tune">
             <span className="span">You</span>
@@ -77,7 +80,6 @@ export const Home = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           </div>
-          
         </div>
         <div className="div-wrapper-4">
         <input
