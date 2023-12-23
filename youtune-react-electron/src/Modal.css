@@ -1,103 +1,92 @@
 .modalBackground {
-    height: 100vh;
-    width: 100vw;
-    background-color: #000000d4;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 3;
-    top: 0;
-    left: 0;
-  }
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000d4;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+}
 
-  .modalContainer {
-    width: 500px;
-    height: 550px;
-    border-radius: 12px;
-    background-color: black;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-    border: 3.5px solid #be0000;
-  }
+.modalContainer {
+  width: 500px;
+  height: 630px;
+  border-radius: 15px;
+  background-color: #000000d4;
+  /* box-shadow: #be0000 0px 0px 50px 5px; */
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border: 3.5px solid #be0000;
+}
 
-  .modalContainer .title {
-    font-family: "Outfit", Helvetica;
-    display: inline-block;
-    text-align: center;
-    color: white;
-  }
-  
-  .titleCloseBtn {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .titleCloseBtn button {
-    height: 50%;
-    font-family: "Outfit", Helvetica;
-    font-weight: 800;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: white;
-    transition: 0.3s ease-out;
-    font-size: 40px;
-  }
-  .titleCloseBtn button:hover {
-    font-family: "Outfit", Helvetica;
-    font-weight: 800;
-    background-color: transparent;
-    border: none;
-    font-size: 45px;
-    cursor: pointer;
-    color: red;
-    transition: 0.3s ease;
-  }
-  
-  .modalContainer .body {
-    font-family: "Outfit", Helvetica;
-    color: white;
-    display: flex;
-    height: 55px;
-    font-size: 26px;
-    justify-content: flex-start;
-  }
-  
-  .modalContainer .footer {
-    flex: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modalContainer .footer button {
-    font-family: "Outfit", Helvetica;
-    width: 150px;
-    height: 50px;
-    background-color: #be0000;
-    color: white;
-    border-radius: 50px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .modalContainer .footer button:hover {
-    background-color: white;
-    color: #be0000;
-    font-weight: 600;
-  }
+.modalContainer .title {
+  font-family: "Outfit", Helvetica;
+  display: inline-block;
+  text-align: center;
+  color: white;
+}
 
-  .modalContainer .usernameInput {
-    align-items: center;
-    display: flex;
-    gap: 10px;
-    left: 120px;
-    padding: 10px;
-    width: 480px;
-  }
+.titleCloseBtn {
+  display: flex;
+  justify-content: flex-end;
+  max-height: 55px;
+}
+
+.titleCloseBtn button {
+  height: 50%;
+  font-family: "Outfit", Helvetica;
+  font-weight: 800;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s ease-out;
+  font-size: 40px;
+}
+.titleCloseBtn button:hover {
+  font-family: "Outfit", Helvetica;
+  font-weight: 800;
+  background-color: transparent;
+  border: none;
+  font-size: 45px;
+  cursor: pointer;
+  color: #be0000;
+  transition: 0.3s ease;
+}
+
+.modalContainer .body {
+  font-family: "Outfit", Helvetica;
+  color: white;
+  display: flex;
+  height: 55px;
+  font-size: 26px;
+  justify-content: flex-start;
+  max-width: 800;
+}
+
+.modalContainer .footer {
+  flex: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer .footer button {
+  font-family: "Outfit", Helvetica;
+  width: 150px;
+  height: 50px;
+  background-color: #be0000;
+  color: white;
+  border-radius: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modalContainer .footer button:hover {
+  background-color: white;
+  color: #be0000;
+  font-weight: 600;
+}

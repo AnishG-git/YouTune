@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Modal.css";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-
+import DynamicForm from './DynamicForm';
 function Modal({ setOpenModal }) {
 
     //Registration handling
@@ -10,6 +10,7 @@ function Modal({ setOpenModal }) {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
+    const fieldHeader = ['Username', 'Email', 'Password'];
     // Necessary registration functions;
   
     //const navigate = useNavigate();
@@ -64,8 +65,8 @@ function Modal({ setOpenModal }) {
         <div className="title">
           <h1>First time? Register now:</h1>
         </div>
-        <div className="body">
-          Username:
+        {/* <div className="body">
+          Username
         </div>
         <div className="usernameInput">
         <input
@@ -74,7 +75,8 @@ function Modal({ setOpenModal }) {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
+        </div> */}
+        <DynamicForm fieldHeaders={fieldHeader}></DynamicForm>
         <div className="footer">
           <button>Register</button>
         </div>

@@ -5,13 +5,275 @@
     display: none;
 }
 
+.login-background {
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}
+.login-form-wrapper  {
+  padding: 1%;
+}
 
-.frame {
+.you-tune{
+  display: flex;
+  float: left;
+  overflow: auto;
+  padding: 2%;
+}
+
+.you-tune .you-tune-span {
+  color: #ffffff;
+  font-family: "Outfit", sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+  
+}
+.you-tune .you-tune-span2 {
+  color: #be0000;
+  font-family: "Outfit", sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+}
+
+.login-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: flex-start;
+  position: fixed;
+  left: 557px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-form-title {
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 0px 0px 3px 0px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 805px;
+  position: relative;
+}
+.screw-the-ads {
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 70px;
+  line-height: 125%;
+  font-weight: 600;
+  position: relative;
+}
+.screw-the-ads-span {
+  color: #ffffff;
+  font-family: "Outfit", sans-serif;
+  font-size: 70px;
+  line-height: 125%;
+  font-weight: 600;
+}
+.screw-the-ads-span2 {
+  color: #be0000;
+  font-family: "Outfit", sans-serif;
+  font-size: 70px;
+  line-height: 125%;
+  font-weight: 600;
+}
+.login-form {
+  padding: 0px 48px 0px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.username {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.username2 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 32px;
+  line-height: 125%;
+  font-weight: 500;
+  position: relative;
+}
+.username-input {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 10px 24px 10px 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border: 0;
+}
+
+.username-input input{
+  background-color: white;
+    color: black;
+    border: 1px solid white;
+    padding: 5px;
+    font-family: "Outfit", Helvetica;
+    font-size: 23px;
+    outline: none;
+}
+.input-text {
+  color: rgba(0, 0, 0, 0.65);
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 30px;
+  line-height: 125%;
+  font-weight: 400;
+  position: relative;
+}
+.password {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.password2 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 32px;
+  line-height: 125%;
+  font-weight: 500;
+  position: relative;
+}
+.password-input {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 10px 24px 10px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.password-input input {
+  background-color: white;
+  color: black;
+  border: 1px solid white;
+  padding: 5px;
+  font-family: "Outfit", Helvetica;
+  font-size: 23px;
+  outline: none;
+}
+.error-message {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 15px;
+  line-height: 125%;
+  font-weight: 400;
+  position: relative;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 28px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.button {
+  top: 20px;
+  background: #be0000;
+  border-radius: 100px;
+  padding: 11px 50px 11px 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.button:hover{
+  background-color: white;
+}
+.login {
+  cursor: pointer;
+  color: #000000;
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 36px;
+  line-height: 125%;
+  font-weight: 600;
+  position: relative;
+}
+
+.error-message {
+  color: #be0000;
+  font-family: "Outfit", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  left: 38px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 130px;
+  white-space: nowrap;
+  width: 290px;
+}
+
+.success-message{
+  color: green;
+  font-family: "Outfit", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  left: 38px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 599px;
+  white-space: nowrap;
+  width: 290px;
+  transition: color 5s ease;
+} 
+
+/* Testing stuff from old  */
+/* .frame {
     background-color: #000000d4;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /* overflow: auto; */
   }
   
   .frame .div {
@@ -19,7 +281,6 @@
     height: auto;
     min-height: 100vh;
     min-width: 100vw;
-    /* width: 100vw; */
     position: relative;
     overflow-y: auto;
     overflow-x: scroll;
@@ -38,7 +299,7 @@
     padding: 11px 50px;
     position: relative;
     top: 730px;
-    cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+    cursor: pointer;
     transition: background-color 0.5s ease;
   }
 
@@ -332,4 +593,4 @@
     white-space: nowrap;
     width: 290px;
     transition: color 5s ease;
-  }
+  } */
