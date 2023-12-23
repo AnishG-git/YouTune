@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./Modal.css";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import DynamicForm from './DynamicForm/DynamicForm';
+import DynamicForm from '../DynamicForm/DynamicForm';
+
 function Modal({ setOpenModal }) {
     const [statusMessage, setStatusMessage] = useState('');
     const fieldHeader = ['Username', 'Email', 'Password'];

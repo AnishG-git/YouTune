@@ -1,9 +1,9 @@
 // LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css';
+import './HomePage.css';
 
-const LoginPage = () => {
+const HomePage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -79,4 +79,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default HomePage;

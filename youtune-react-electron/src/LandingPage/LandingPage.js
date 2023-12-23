@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Home.css';
-import Modal from './Modal';
+import './LandingPage.css';
+import Modal from '../Modal/Modal';
 // Import necessary dependencies
 
-export const Home = () => {
+export const LandingPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -104,4 +104,4 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export default LandingPage;
