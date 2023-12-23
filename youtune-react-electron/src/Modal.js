@@ -1,52 +1,42 @@
 import React, { useState } from "react";
 import "./Modal.css";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import DynamicForm from './DynamicForm';
+import DynamicForm from './DynamicForm/DynamicForm';
 function Modal({ setOpenModal }) {
-
-    //Registration handling
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [modalOpen, setModalOpen] = useState(false);
+    const [statusMessage, setStatusMessage] = useState('');
     const fieldHeader = ['Username', 'Email', 'Password'];
-    // Necessary registration functions;
-  
-    //const navigate = useNavigate();
-    const handleLogin = async () => {
-      // Simple validation
-      if (!username || !password) {
-        setErrorMessage('Please enter both username and password.');
+    const handleRegister = async (formData) => {
+      const username = formData['Username'];
+      const email = formData['Email'];
+      const password = formData['Password'];
+      if (!username || !password || !email) {
+        setStatusMessage('Please enter username, email, and password.');
       } else {
-          try {
-              const response = await fetch('http://127.0.0.1:8000/api/login/', {
+            setStatusMessage('');
+            try {
+              console.log('entered try statement');
+              const response = await fetch('http://127.0.0.1:8000/api/register/', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                   username: username,
+                  email: email,
                   password: password,
                 }),
               });
         
               if (!response.ok) {
-                throw new Error('Login failed');
+                throw new Error('Registration failed');
               }
-        
-              // Assuming the server responds with a JSON object
+              setStatusMessage('Registered Successfully!');
+              // setOpenModal(false);
               const result = await response.json();
-        
-              // Perform any further actions based on the result
-              console.log('Login successful, Token: ', result['token']);
-              setSuccessMessage("Logged in Successfully");
-              setErrorMessage('');
-              //navigate('/homepage');
+              console.log(result);
             } catch (error) {
               console.error('Error during login:', error);
-              setErrorMessage('Login failed. Please try again.');
-              setSuccessMessage(''); 
+              setStatusMessage('Registration failed. Please try again in some time.');
             }
       }
     };
@@ -65,21 +55,8 @@ function Modal({ setOpenModal }) {
         <div className="title">
           <h1>First time? Register now:</h1>
         </div>
-        {/* <div className="body">
-          Username
-        </div>
-        <div className="usernameInput">
-        <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div> */}
-        <DynamicForm fieldHeaders={fieldHeader}></DynamicForm>
-        <div className="footer">
-          <button>Register</button>
-        </div>
+        <DynamicForm fieldHeaders={fieldHeader} buttonName={'Register'} 
+        onSubmit={handleRegister} statusMessage={statusMessage}></DynamicForm>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import './DynamicForm.css';
 
-const DynamicForm = ({ className, fieldHeaders }) => {
+const DynamicForm = ({ className, fieldHeaders, buttonName, onSubmit, statusMessage}) => {
   // Generate an array of input elements based on the fieldHeaders
   const renderTextFields = () => {
     const textFields = [];
@@ -30,10 +30,23 @@ const DynamicForm = ({ className, fieldHeaders }) => {
     return textFields;
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = {};
+    for (let i = 0; i < fieldHeaders.length; i++) {
+      formData[fieldHeaders[i]] = document.getElementById(fieldHeaders[i]).value;
+    }
+    onSubmit(formData);
+  };
+
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       {renderTextFields()}
-      <label className='statusMessage'>Status Message</label>
+      <label className='statusMessage'>{statusMessage}</label>
+      <div className="footer">
+          <button type='submit'>{buttonName}</button>
+        </div>
     </form>
   );
 };

@@ -13,9 +13,9 @@
     color: black;
     border: 2px solid white; /* Bolder border for text fields */
     border-radius: 10px; /* Round the corners of text fields */
-    /* Additional styling for text fields */
     margin-bottom: 30px; /* Increase spacing between text fields */
     width: -webkit-fill-available;
+    outline: none;
 }
 
 .statusMessage {
