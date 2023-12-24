@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './LandingPage.css';
 import Modal from '../Modal/Modal';
 // Import necessary dependencies
@@ -9,9 +9,18 @@ export const LandingPage = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const location = useLocation();
+    const logoutStatus = location.state || null;
     const [modalOpen, setModalOpen] = useState(false);
+
     // Necessary registration functions;
-  
+    useEffect(() => {
+      // Use useEffect to set the success message once after the component mounts
+      if (logoutStatus) {
+        setSuccessMessage("Logged out successfully");
+      }
+    }, [logoutStatus]);
+
     const navigate = useNavigate();
     const handleLogin = async () => {
       // Simple validation
@@ -36,12 +45,12 @@ export const LandingPage = () => {
         
               // Assuming the server responds with a JSON object
               const result = await response.json();
-        
+              const token = result['token'];
               // Perform any further actions based on the result
-              console.log('Login successful, Token: ', result['token']);
-              setSuccessMessage("Logged in Successfully");
+              console.log('Login successful, Token: ', token);
+              setSuccessMessage('');
               setErrorMessage('');
-              navigate('/homepage');
+              navigate('/homepage', { state: { token: token } });
             } catch (error) {
               console.error('Error during login:', error);
               setErrorMessage('Login failed. Please try again.');
@@ -92,10 +101,10 @@ export const LandingPage = () => {
         </div>
         <div className="buttons">
           <div className="button" onClick={handleLogin}>
-            <div className="login">Login </div>
+            <div className="login">Login</div>
           </div>
           <div className="button" onClick={setModalOpen}>
-            <div className="login">Register </div>
+            <div className="login">Register</div>
           </div>
           {modalOpen && <Modal setOpenModal={setModalOpen} />}
         </div>
