@@ -23,3 +23,7 @@
     font-size: medium;
     color: white;
 }
+
+.submitButton {
+    border: 0px;
+}

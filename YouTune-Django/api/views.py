@@ -28,14 +28,18 @@ def register(request):
 
         if username and password and email:
             # Create a new user
-            user = AppUser.objects.create_user(username=username, password=password, email=email)
-            create_user_directories(user)
+            if AppUser.objects.filter(username=username).exists():
+                return Response({"response": "Username already exists"}, status=status.HTTP_201_CREATED)
+            if AppUser.objects.filter(email=email).exists():
+                return Response({"response": "Email already exists"}, status=status.HTTP_201_CREATED)
+            AppUser.objects.create_user(username=username, password=password, email=email)
+            # create_user_directories(user)
             # Initialize an empty playlist for the user
             # user.playlists.set([])  # Set an empty list of playlists
             print("user successfully registered\n")
-            return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
+            return Response({"response": "User registered successfully"}, status=status.HTTP_201_CREATED)
         else:
-            return Response({"error": "Username, password, and email are required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"response": "Username, password, and email are required"}, status=status.HTTP_400_BAD_REQUEST)
         
 # login function
 @api_view(['POST'])

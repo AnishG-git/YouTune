@@ -68,7 +68,7 @@ export const LandingPage = () => {
             <div className="username-input">
             <input
               type="text"
-              id="username"
+              id="loginUsername"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -79,7 +79,7 @@ export const LandingPage = () => {
             <div className="password-input">
             <input
              type="password"
-             id="password"
+             id="loginPassword"
              value={password}
              onChange={(e) => setPassword(e.target.value)}
            />

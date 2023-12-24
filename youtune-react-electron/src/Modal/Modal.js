@@ -35,9 +35,9 @@ function Modal({ setOpenModal }) {
               // setOpenModal(false);
               const result = await response.json();
               console.log(result);
+              setStatusMessage(result['response']);
             } catch (error) {
-              console.error('Error during login:', error);
-              setStatusMessage('Registration failed. Please try again in some time.');
+              console.error('Error during registration:', error);
             }
       }
     };

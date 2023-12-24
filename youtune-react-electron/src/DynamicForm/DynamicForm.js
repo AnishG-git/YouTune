@@ -45,7 +45,7 @@ const DynamicForm = ({ className, fieldHeaders, buttonName, onSubmit, statusMess
       {renderTextFields()}
       <label className='statusMessage'>{statusMessage}</label>
       <div className="footer">
-          <button type='submit'>{buttonName}</button>
+          <button className= 'submitButton' type='submit'>{buttonName}</button>
         </div>
     </form>
   );
