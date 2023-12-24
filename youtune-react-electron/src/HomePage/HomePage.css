@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap");
 
 .dashboard,
 .dashboard * {
@@ -25,7 +25,7 @@
   top: 19px;
   padding-bottom: 20px;
 }
-.you-tune-homepage{
+.you-tune-homepage {
   display: flex;
 }
 
@@ -46,7 +46,7 @@
   font-size: 200%;
   line-height: 125%;
   font-weight: 600;
-  text-shadow: black 0px 0 5px; 
+  text-shadow: black 0px 0 5px;
 }
 
 .logout {
@@ -60,10 +60,10 @@
   left: 1785px;
   cursor: pointer;
   transition: 0.3s ease;
-  text-shadow: black 0px 0 5px;  
+  text-shadow: black 0px 0 5px;
 }
 
-.logout:hover{
+.logout:hover {
   color: #be0000;
 }
 .frame-18 {

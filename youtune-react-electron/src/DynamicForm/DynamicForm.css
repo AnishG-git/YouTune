@@ -1,29 +1,29 @@
 /* DynamicForm.css */
 
 .textFieldHeader {
-    font-family: 'Outfit', Helvetica;
-    font-size: x-large;
-    font-weight: bold;
-    color: white;
+  font-family: "Outfit", Helvetica;
+  font-size: x-large;
+  font-weight: bold;
+  color: white;
 }
 
 .textField {
-    font-family: 'Outfit', Helvetica;
-    font-size: large;
-    color: black;
-    border: 7px solid white; /* Bolder border for text fields */
-    border-radius: 10px; /* Round the corners of text fields */
-    margin-bottom: 30px; /* Increase spacing between text fields */
-    width: -webkit-fill-available;
-    outline: none;
+  font-family: "Outfit", Helvetica;
+  font-size: large;
+  color: black;
+  border: 7px solid white; /* Bolder border for text fields */
+  border-radius: 10px; /* Round the corners of text fields */
+  margin-bottom: 30px; /* Increase spacing between text fields */
+  width: -webkit-fill-available;
+  outline: none;
 }
 
 .statusMessage {
-    font-family: 'Outfit', Helvetica;
-    font-size: medium;
-    color: white;
+  font-family: "Outfit", Helvetica;
+  font-size: medium;
+  color: white;
 }
 
 .submitButton {
-    border: 0px;
+  border: 0px;
 }

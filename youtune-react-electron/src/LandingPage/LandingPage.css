@@ -266,7 +266,6 @@
   font-family: "Outfit", Helvetica;
   font-size: 15px;
   font-weight: 900;
-  left: 38px;
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
@@ -281,13 +280,12 @@
   color: white;
   font-family: "Outfit", Helvetica;
   font-size: 15px;
-  font-weight: 400;
-  left: 38px;
+  font-weight: 900;
   letter-spacing: 0;
   line-height: normal;
   position: absolute;
-  top: 599px;
+  top: 130px;
   white-space: nowrap;
   width: 290px;
-  transition: color 5s ease;
+  animation: pulse 1s;
 } 

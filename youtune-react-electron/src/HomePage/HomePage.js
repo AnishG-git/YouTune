@@ -1,8 +1,8 @@
 // HomePage.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import { useNavigate } from 'react-router-dom';
-import './HomePage.css';
-import { useNavigate, useLocation } from 'react-router-dom';
+import "./HomePage.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
@@ -12,22 +12,22 @@ export const HomePage = ({ className, ...props }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/logout/', {
-        method: 'GET',
+      const response = await fetch("http://127.0.0.1:8000/api/logout/", {
+        method: "GET",
         headers: {
-          'Authorization': 'Token ' + token,
+          Authorization: "Token " + token,
         },
       });
 
       if (!response.ok) {
-        throw new Error('Logout failed');
+        throw new Error("Logout failed");
       }
       const result = await response.json();
       console.log("Logged out successfully");
       // Perform any further actions based on the result
-      navigate('/', { state: "Logged out successfully!" });
+      navigate("/", { state: "Logged out successfully!" });
     } catch (error) {
-      console.error('Error during logout:', error);
+      console.error("Error during logout:", error);
     }
   };
 
@@ -35,12 +35,15 @@ export const HomePage = ({ className, ...props }) => {
     <div className={"dashboard " + className}>
       <div className="frame-9">
         <div className="you-tune-homepage">
-            <p className="you-tune-homespan">You</p>
-            <p className="you-tune-homespan2">Tune</p>
+          <p className="you-tune-homespan">You</p>
+          <p className="you-tune-homespan2">Tune</p>
         </div>
       </div>
       <div className="logout-container"> </div>
-        <p className='logout' onClick={handleLogout}> Logout</p>
+      <p className="logout" onClick={handleLogout}>
+        {" "}
+        Logout
+      </p>
       <div className="frame-18">
         <div className="frame-15">
           <div className="rectangle-2"></div>
