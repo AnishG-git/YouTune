@@ -7,11 +7,9 @@ export const HomePage = ({ className, ...props }) => {
   return (
     <div className={"dashboard " + className}>
       <div className="frame-9">
-        <div className="you-tune">
-          <span>
-            <span className="you-tune-span">You</span>
-            <span className="you-tune-span2">Tune</span>
-          </span>{" "}
+        <div className="you-tune-homepage">
+            <p className="you-tune-homespan">You</p>
+            <p className="you-tune-homespan2">Tune</p>
         </div>
       </div>
       <div className="logout-container"> </div>

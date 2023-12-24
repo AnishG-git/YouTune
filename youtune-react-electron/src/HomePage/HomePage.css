@@ -25,28 +25,30 @@
   top: 19px;
   padding-bottom: 20px;
 }
-.you-tune {
-  text-align: left;
-  font-family: "Outfit", sans-serif;
-  font-size: 2vh;
-  line-height: 125%;
-  font-weight: 600;
-  position: relative;
+.you-tune-homepage{
+  display: flex;
 }
-.you-tune-span {
+
+.you-tune-homespan {
   color: #ffffff;
   font-family: "Outfit", sans-serif;
-  font-size: 2%;
+  font-size: 200%;
   line-height: 125%;
   font-weight: 600;
 }
-.you-tune-span2 {
+
+.you-tune-homespan2 {
+  box-sizing: content-box;
+  display: flexbox;
+  flex-direction: row;
   color: #be0000;
   font-family: "Outfit", sans-serif;
-  font-size: 2px;
+  font-size: 200%;
   line-height: 125%;
   font-weight: 600;
+  text-shadow: black 0px 0 5px; 
 }
+
 .logout {
   color: #ffffff;
   text-align: left;
@@ -59,6 +61,7 @@
   top: 28px;
   cursor: pointer;
   transition: 0.3s ease;
+  text-shadow: black 0px 0 5px;  
 }
 
 .logout:hover{
