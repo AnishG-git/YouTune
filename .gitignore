@@ -10,6 +10,8 @@
 /YouTune-Django*.pyd
 /YouTune-Django/.vscode
 /YouTune-Django/.env
+/YouTune-Django/db.sqlite3
+
 
 # .gitignore Electron
 /youtune-react-electron/node_modules
