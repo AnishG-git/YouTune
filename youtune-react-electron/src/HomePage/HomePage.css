@@ -51,6 +51,7 @@
 }
 
 .logout {
+  user-select: none;
   color: #ffffff;
   text-align: left;
   font-family: "Outfit", sans-serif;
