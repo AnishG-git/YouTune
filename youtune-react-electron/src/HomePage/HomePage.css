@@ -1,5 +1,159 @@
-/* LoginPage.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap');
 
-  .homeContainer {
-    color: black;
-  }
+.dashboard,
+.dashboard * {
+  box-sizing: border-box;
+}
+.dashboard {
+  background: rgba(0, 0, 0, 0.83);
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+.frame-9 {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: left;
+  width: 400px;
+  height: 60px;
+  position: absolute;
+  left: 45px;
+  top: 19px;
+  padding-bottom: 20px;
+}
+.you-tune {
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 2vh;
+  line-height: 125%;
+  font-weight: 600;
+  position: relative;
+}
+.you-tune-span {
+  color: #ffffff;
+  font-family: "Outfit", sans-serif;
+  font-size: 2%;
+  line-height: 125%;
+  font-weight: 600;
+}
+.you-tune-span2 {
+  color: #be0000;
+  font-family: "Outfit", sans-serif;
+  font-size: 2px;
+  line-height: 125%;
+  font-weight: 600;
+}
+.logout {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 24px;
+  line-height: 125%;
+  font-weight: 600;
+  position: absolute;
+  left: 1785px;
+  top: 28px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.logout:hover{
+  color: #be0000;
+}
+.frame-18 {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 45px;
+  top: 73px;
+}
+.frame-15 {
+  padding: 6px 0px 6px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.rectangle-2 {
+  background: #393939;
+  border-radius: 21px;
+  flex-shrink: 0;
+  width: 888px;
+  height: 50px;
+  position: relative;
+}
+.search {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 24px;
+  line-height: 125%;
+  font-weight: 600;
+  position: absolute;
+  left: 38px;
+  top: 16px;
+}
+.frame-16 {
+  padding: 28px 14px 28px 14px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 921px;
+  position: absolute;
+  left: 960px;
+  top: 79px;
+  overflow: hidden;
+}
+.rectangle-22 {
+  background: #393939;
+  border-radius: 21px;
+  flex-shrink: 0;
+  width: 888px;
+  height: 921px;
+  position: relative;
+}
+.playlists {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Outfit", sans-serif;
+  font-size: 24px;
+  line-height: 125%;
+  font-weight: 600;
+  position: absolute;
+  left: 413px;
+  top: 26px;
+}
+.frame-17 {
+  padding: 18px 10px 18px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 856px;
+  position: absolute;
+  left: 35px;
+  top: 141px;
+  overflow: hidden;
+}
+.rectangle-1 {
+  background: #393939;
+  border-radius: 21px;
+  flex-shrink: 0;
+  width: 888px;
+  height: 857px;
+  position: relative;
+}
