@@ -9,9 +9,9 @@
 
 .textField {
     font-family: 'Outfit', Helvetica;
-    font-size: x-large;
+    font-size: large;
     color: black;
-    border: 2px solid white; /* Bolder border for text fields */
+    border: 7px solid white; /* Bolder border for text fields */
     border-radius: 10px; /* Round the corners of text fields */
     margin-bottom: 30px; /* Increase spacing between text fields */
     width: -webkit-fill-available;

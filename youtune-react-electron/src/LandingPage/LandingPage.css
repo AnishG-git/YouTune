@@ -19,6 +19,7 @@
   float: left;
   overflow: auto;
   padding: 2%;
+  user-select: none;
 }
 
 .you-tune .you-tune-span {
@@ -69,6 +70,7 @@
   line-height: 125%;
   font-weight: 600;
   position: relative;
+  user-select: none;
 }
 .screw-the-ads-span {
   color: #ffffff;
@@ -138,6 +140,7 @@
     font-family: "Outfit", Helvetica;
     font-size: 23px;
     outline: none;
+    width: -webkit-fill-available;
 }
 .input-text {
   color: rgba(0, 0, 0, 0.65);
@@ -148,6 +151,7 @@
   font-weight: 400;
   position: relative;
 }
+
 .password {
   display: flex;
   flex-direction: column;
@@ -158,6 +162,7 @@
   flex-shrink: 0;
   position: relative;
 }
+
 .password2 {
   color: #ffffff;
   text-align: left;
@@ -167,6 +172,7 @@
   font-weight: 500;
   position: relative;
 }
+
 .password-input {
   background: #ffffff;
   border-radius: 15px;
@@ -181,6 +187,7 @@
   position: relative;
   overflow: hidden;
 }
+
 .password-input input {
   background-color: white;
   color: black;
@@ -189,7 +196,9 @@
   font-family: "Outfit", Helvetica;
   font-size: 23px;
   outline: none;
+  width: -webkit-fill-available;
 }
+
 .error-message {
   color: #ffffff;
   text-align: left;
@@ -208,6 +217,7 @@
   align-self: stretch;
   flex-shrink: 0;
   position: relative;
+  user-select: none;
 }
 .button {
   top: 20px;
@@ -237,13 +247,25 @@
   line-height: 125%;
   font-weight: 600;
   position: relative;
+  animation: pulse 1s;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .error-message {
   color: #be0000;
   font-family: "Outfit", Helvetica;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 900;
   left: 38px;
   letter-spacing: 0;
   line-height: normal;
@@ -251,7 +273,9 @@
   top: 130px;
   white-space: nowrap;
   width: 290px;
+  animation: pulse 1s;
 }
+
 
 .success-message{
   color: white;
