@@ -1,14 +1,20 @@
 // HomePage.js
 import React, { useState } from "react";
-// import { useNavigate } from 'react-router-dom';
 import "./HomePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
 
   const location = useLocation();
   const { token } = location.state || {};
+
+  // Handles search form input
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   const handleLogout = async () => {
     try {
@@ -46,8 +52,17 @@ export const HomePage = ({ className, ...props }) => {
       </p>
       <div className="frame-18">
         <div className="frame-15">
-          <div className="rectangle-2"></div>
-          <div className="search">Search </div>
+          <div className="rectangle-2">
+            <div className="search-bar">
+              <input
+                type="text"
+                placeholder="Search a song"
+                value={searchTerm}
+                onChange={handleChange}
+              />
+              <FaSearch className="search-icon" />
+            </div>
+          </div>
         </div>
       </div>
       <div className="frame-16">
