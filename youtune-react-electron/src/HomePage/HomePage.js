@@ -47,7 +47,6 @@ export const HomePage = ({ className, ...props }) => {
       </div>
       <div className="logout-container"> </div>
       <p className="logout" onClick={handleLogout}>
-        {" "}
         Logout
       </p>
       <div className="frame-18">
@@ -58,7 +57,7 @@ export const HomePage = ({ className, ...props }) => {
                 type="text"
                 placeholder="Search a song"
                 value={searchTerm}
-                onChange={handleChange}
+                onChange={handleChange} 
               />
               <FaSearch className="search-icon" />
             </div>
