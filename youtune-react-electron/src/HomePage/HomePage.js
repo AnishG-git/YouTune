@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "./HomePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTimesCircle } from "react-icons/fa";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
@@ -14,6 +14,15 @@ export const HomePage = ({ className, ...props }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
+  };
+  const handleKeyPress = event => {
+    if (event.key === 'Enter') {
+        // Handle search here, can be removed after testing
+        console.log(`Searching for: ${searchTerm}`);
+    }
+  };
+  const clearSearch = () => {
+    setSearchTerm('');
   };
 
   const handleLogout = async () => {
@@ -57,8 +66,10 @@ export const HomePage = ({ className, ...props }) => {
                 type="text"
                 placeholder="Search a song"
                 value={searchTerm}
-                onChange={handleChange} 
+                onChange={handleChange}
+                onKeyDown={handleKeyPress}
               />
+              {searchTerm && <FaTimesCircle className="clear-icon" onClick={clearSearch} />}
               <FaSearch className="search-icon" />
             </div>
           </div>

@@ -138,6 +138,21 @@
   opacity: 0.6;
 }
 
+.clear-icon {
+  color: white;
+  position: absolute;
+  top: 15px;
+  justify-content: center;
+  right: 70px;
+  transition: 0.3s ease;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.clear-icon:hover {
+  color: #be0000;
+}
+
 .frame-16 {
   padding: 28px 14px 28px 14px;
   display: flex;
