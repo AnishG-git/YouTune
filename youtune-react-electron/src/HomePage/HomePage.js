@@ -61,7 +61,7 @@ export const HomePage = ({ className, ...props }) => {
         throw new Error("Search failed");
       }
       const incompleteResults = await incompleteSongInfo.json();
-      //console.log(incompleteResults);
+      console.log(incompleteResults);
       for (let i = 0; i < 5; i++) {
         if (incompleteResults[i] !== "undefined") {
           const curr_result = incompleteResults[i];
@@ -153,7 +153,11 @@ export const HomePage = ({ className, ...props }) => {
       <div className="frame-17">
         <div className="rectangle-1">
           <SearchResultsTable searchResults={searchResult} />
-          {loading && (<p>Loading...</p>)}
+          {loading && (<div class="loading-bar">
+                        <div class="progress">
+                          <div class="color"></div>
+                        </div>
+                      </div>)}
         </div>
       </div>
     </div>

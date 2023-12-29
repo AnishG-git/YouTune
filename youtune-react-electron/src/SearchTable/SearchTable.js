@@ -1,6 +1,6 @@
 // SearchResultsTable.js
 import React from 'react';
-
+import './SearchTable.css';
 const SearchResultsTable = ({ searchResults }) => {
   return (
     <table>
@@ -8,7 +8,7 @@ const SearchResultsTable = ({ searchResults }) => {
         <tr>
           <th>Song</th>
           <th>Artist</th>
-          <th>Duration</th>
+          <th>Duration (s)</th>
         </tr>
       </thead>
       <tbody>
