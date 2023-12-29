@@ -1,28 +1,97 @@
 // HomePage.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaSearch, FaTimesCircle } from "react-icons/fa";
+import SearchResultsTable from "../SearchTable/SearchTable";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
 
   const location = useLocation();
   const { token } = location.state || {};
-
-  // Handles search form input
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  //new line
+  const [loading, setLoading] = useState(false);
+
+  const clearSearch = () => {
+    setSearchTerm("");
+  };
+
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  const handleKeyPress = event => {
-    if (event.key === 'Enter') {
-        // Handle search here, can be removed after testing
-        console.log(`Searching for: ${searchTerm}`);
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
     }
   };
-  const clearSearch = () => {
-    setSearchTerm('');
+
+  const handleSearch = async () => {
+    if (searchTerm === "") {
+      console.log("empty query");
+      return;
+    }
+
+    if (searchTerm.split("").every((char) => char === " ")) {
+      return;
+    }
+    setSearchResult([]);
+    try {
+      // Progressively holds song information as audio conversion api is called
+      let finalResults = [];
+      // Loading will be true until all api calls are done
+      setLoading(true);
+      // This API calls the youtube data api and gets the title, channel, and duration
+      const incompleteSongInfo = await fetch(
+        "http://127.0.0.1:8000/api/youtube-search/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: searchTerm,
+          }),
+        }
+      );
+      if (!incompleteSongInfo.ok) {
+        throw new Error("Search failed");
+      }
+      const incompleteResults = await incompleteSongInfo.json();
+      //console.log(incompleteResults);
+      for (let i = 0; i < 5; i++) {
+        if (incompleteResults[i] !== "undefined") {
+          const curr_result = incompleteResults[i];
+          const get_audio_url = await fetch(
+            "http://127.0.0.1:8000/api/convert-2-audio/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                url: curr_result["url"],
+              }),
+            }
+          );
+          if (!get_audio_url.ok) {
+            throw new Error("audio url conversion failed for " + curr_result["url"]);
+          }
+          const audio_url = await get_audio_url.json();
+          curr_result.url = audio_url;
+          finalResults.push(curr_result);
+          setSearchResult([...finalResults]);
+        }
+      }
+    } catch (error) {
+      console.error("Error during search:", error);
+      // new lines
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleLogout = async () => {
@@ -69,8 +138,10 @@ export const HomePage = ({ className, ...props }) => {
                 onChange={handleChange}
                 onKeyDown={handleKeyPress}
               />
-              {searchTerm && <FaTimesCircle className="clear-icon" onClick={clearSearch} />}
-              <FaSearch className="search-icon" />
+              {searchTerm && (
+                <FaTimesCircle className="clear-icon" onClick={clearSearch} />
+              )}
+              <FaSearch className="search-icon" onClick={handleSearch} />
             </div>
           </div>
         </div>
@@ -80,7 +151,10 @@ export const HomePage = ({ className, ...props }) => {
         <div className="playlists">Playlists </div>
       </div>
       <div className="frame-17">
-        <div className="rectangle-1"></div>
+        <div className="rectangle-1">
+          <SearchResultsTable searchResults={searchResult} />
+          {loading && (<p>Loading...</p>)}
+        </div>
       </div>
     </div>
   );

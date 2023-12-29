@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from .models import AppUser
 from .models import Playlist
 from .models import Song
-from .song_info import get_song_info, download_song
+from .song_info import get_song_info, download_song, get_audio_url
 from .serializers import AppUserSerializer
 from .helpers import create_user_directories
 from django.conf import settings
@@ -98,83 +98,53 @@ def delete_playlist(request):
     return Response({"error": "must pass playlist's name as parameter 'name' in body of request"})
 
 @api_view(['POST'])
-def search_youtube(request):
+def get_youtube_data(query):
     MAX_DURATION = 359
     try:
-        query = request.data.get('query')                           # youtube query
-        nth_result = request.data.get('nth_result')
-        api_key = os.environ.get('YT_API_KEY')                      # api key for youtube data api
+        req = query.data.get('query')
+        api_key = os.environ.get('YT_API_KEY')
         youtube = build('youtube', 'v3', developerKey=api_key)
-        search_response = youtube.search().list(
-            q=query,
+        request = youtube.search().list(
+            part='snippet',
+            q=req,
             type='video',
-            part='id',
-            maxResults=6
-        ).execute()                                                 # executing search with query
-
-    ###################################################### TESTING START
-        if 'items' in search_response and len(search_response['items']) >= nth_result:
-            # Extract the nth search result
-            item = search_response['items'][nth_result - 1]
-            
+            maxResults=5
+        )
+        response = request.execute()
+        videos = []
+        for item in response['items']:
             try:
                 video_id = item['id']['videoId']
-                video_response = youtube.videos().list(
-                    id=video_id,
-                    part='contentDetails'
-                ).execute()
-
-                iso_duration = video_response['items'][0]['contentDetails']['duration']
+                video_info = youtube.videos().list(
+                    part='snippet,contentDetails',
+                    id=video_id
+                ).execute()['items'][0]
+                iso_duration = video_info['contentDetails']['duration']
                 duration = int(parse_duration(iso_duration).total_seconds())
-
-                if duration < MAX_DURATION:
-                    url = f'https://www.youtube.com/watch?v={video_id}'
-                    song_info = get_song_info(video_url=url)
-
-                    result = {
-                        "title": song_info["title"],
-                        "url": url,
-                        "audio_url": song_info["audio_url"],
-                        "duration": duration,
-                        "author": song_info["uploader"]
-                    }
-
-                    return Response(result, status=status.HTTP_200_OK)
-
-            except Exception as e:
-                print(f'Error playing: https://www.youtube.com/watch?v={video_id}', str(e))
-
-        return Response({"message": "No valid results found"}, status=status.HTTP_200_OK)
-    ###################################################### TESTING END
-        # songs = []                                                  # array that will hold songs and their info
-        # for item in search_response.get('items', []):               # looping through search results and gathering info
-        #     try:
-        #         video_id = item['id']['videoId']
-        #         video_response = youtube.videos().list(
-        #             id=video_id,
-        #             part='contentDetails'
-        #         ).execute()
-        #         iso_duration = video_response['items'][0]['contentDetails']['duration']
-        #         duration = int(parse_duration(iso_duration).total_seconds())
-        #         if duration < MAX_DURATION:
-        #             url=f'https://www.youtube.com/watch?v={video_id}'
-        #             song_info = get_song_info(video_url=url)
-        #             songs.append(
-        #                 {
-        #                 "title": song_info["title"],
-        #                 "url": url,
-        #                 "audio_url": song_info["audio_url"], 
-        #                 "duration": duration, 
-        #                 "author": song_info["uploader"]
-        #                 }
-        #             )
-        #     except:
-        #         print(f'Error playing: https://www.youtube.com/watch?v={video_id}')
-        # if len(songs) == 0:
-        #     return Response({"message": "duration of results too long, no search results"}, status=status.HTTP_200_OK)
-        # return Response(songs, status=status.HTTP_200_OK)
+                if (duration < MAX_DURATION):
+                    title = video_info['snippet']['title']
+                    artist = video_info['snippet']['channelTitle']
+                    url = f'https://youtube.com/watch?v={video_id}'
+                    videos.append({
+                        'title': title,
+                        'artist': artist,
+                        'duration': duration,
+                        'url': url
+                    })
+            except:
+                print(f'Error playing: https://www.youtube.com/watch?v={video_id}')
+        return Response(videos, status=status.HTTP_202_ACCEPTED)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": e}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def audio_convert(request):
+    try:
+        url = request.data.get('url')
+        audio_url = get_audio_url(url)
+        return Response({"audio_url": audio_url}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"error": e}, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
