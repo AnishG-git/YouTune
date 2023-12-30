@@ -211,12 +211,12 @@
   display: block;
   position: relative;
   height: 12px;
-  width: 60%;
+  width: 50%;
   border: 1px solid #fff;
   border-radius: 10px;
   overflow: hidden;
   top: 30px;
-  left: 20px;
+  left: 25%;
 }
 .loader::after {
   content: '';
@@ -244,6 +244,6 @@
 .player {
   display: flex;
   position: relative;
-  top: 90vh;
-  height: 100px;
+  top: 91vh;
+  justify-content: center;
 }
