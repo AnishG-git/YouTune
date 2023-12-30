@@ -45,5 +45,5 @@
   "devDependencies": {
     "concurrently": "^8.2.2"
   },
-  "main":"src/index/index.js"
+  "main": "src/index/index.js"
 }

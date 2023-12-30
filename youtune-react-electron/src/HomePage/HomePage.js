@@ -2,19 +2,25 @@
 import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaSearch, FaTimesCircle } from "react-icons/fa";
+import { FaSearch, FaTimesCircle, FaPlay } from "react-icons/fa";
 import SearchResultsTable from "../SearchTable/SearchTable";
+import CustomAudioPlayer from "../CustomAudioPlayer/CustomAudioPlayer";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = location.state || {};
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedSong, setSelectedSong] = useState(null);
 
   const clearSearch = () => {
     setSearchTerm("");
+  };
+
+  const handleSongSelection = (selectedSong) => {
+    setSelectedSong(selectedSong);
   };
 
   const handleChange = (event) => {
@@ -36,7 +42,7 @@ export const HomePage = ({ className, ...props }) => {
     if (searchTerm.split("").every((char) => char === " ")) {
       return;
     }
-    setSearchResult([]);
+    setSearchResults([]);
     try {
       // Progressively holds song information as audio conversion api is called
       let finalResults = [];
@@ -76,12 +82,14 @@ export const HomePage = ({ className, ...props }) => {
             }
           );
           if (!get_audio_url.ok) {
-            throw new Error("audio url conversion failed for " + curr_result["url"]);
+            throw new Error(
+              "audio url conversion failed for " + curr_result["url"]
+            );
           }
-          const audio_url = await get_audio_url.json();
-          curr_result.url = audio_url;
+          const audio = await get_audio_url.json();
+          curr_result.audio_url = audio.audio_url;
           finalResults.push(curr_result);
-          setSearchResult([...finalResults]);
+          setSearchResults([...finalResults]);
         }
       }
     } catch (error) {
@@ -150,13 +158,19 @@ export const HomePage = ({ className, ...props }) => {
       </div>
       <div className="frame-17">
         <div className="rectangle-1">
-          <SearchResultsTable searchResults={searchResult} />
-          {loading && (<div class="loading-bar">
-                        <div class="progress">
-                          <div class="color"></div>
-                        </div>
-                      </div>)}
+          <SearchResultsTable
+            searchResults={searchResults}
+            onSongSelect={handleSongSelection}
+          />
+          {loading && <span className="loader"></span>}
         </div>
+      </div>
+      <div className="player">
+        {/* <audio controls={true}>
+          <source src={selectedSong} className="audioPlayer" type="audio/webm" />
+          Your browser does not support the audio tag.
+        </audio> */}
+        <CustomAudioPlayer audioUrl={selectedSong}/>
       </div>
     </div>
   );

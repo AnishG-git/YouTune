@@ -6,10 +6,10 @@
 }
 .dashboard {
   background: rgba(0, 0, 0, 0.83);
-  width: 1920px;
-  height: 1080px;
+  width: 100vw;
+  height: 100vh;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 .frame-9 {
   padding: 10px;
@@ -154,13 +154,13 @@
 }
 
 .frame-16 {
-  padding: 28px 14px 28px 14px;
+  padding: 0px 14px 28px 14px;
   display: flex;
   flex-direction: row;
   gap: 10px;
   align-items: center;
   justify-content: center;
-  height: 921px;
+  height: 81.6%;
   position: absolute;
   left: 960px;
   top: 79px;
@@ -171,7 +171,7 @@
   border-radius: 21px;
   flex-shrink: 0;
   width: 888px;
-  height: 921px;
+  height: 100%;
   position: relative;
 }
 .playlists {
@@ -186,13 +186,13 @@
   top: 26px;
 }
 .frame-17 {
-  padding: 18px 10px 18px 10px;
+  padding: 10px 10px 25px 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
   justify-content: center;
-  height: 856px;
+  height: 75%;
   position: absolute;
   left: 35px;
   top: 141px;
@@ -203,46 +203,47 @@
   border-radius: 21px;
   flex-shrink: 0;
   width: 888px;
-  height: 857px;
+  height: 100%;
   position: relative;
 }
 
-.loading-bar{
-  padding-top: 20px;
-  padding-left: 20px;
+.loader{
+  display: block;
+  position: relative;
+  height: 12px;
+  width: 60%;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  top: 30px;
+  left: 20px;
 }
-.progress{
+.loader::after {
+  content: '';
+  width: 40%;
+  height: 100%;
+  background: #be0000;
   position: absolute;
-  height: 20px;
-  width: 120px;
-  border: 6px solid #be0000;
-  border-radius: 15px;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: animloader 2s linear infinite;
 }
-.progress .color{
-  position: absolute;
-  background-color: #ffffff;
-  width: 0px;
-  height: 8px;
-  border-radius: 15px;
-  animation: progres 4s infinite linear;    
+
+@keyframes animloader {
+  0% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(0%);
+  }
 }
-@keyframes progres{
-  0%{
-    width: 0%;
-  }
-  15%{
-      width: 30%;
-  }
-  25%{
-    width: 50%;
+
+.player {
+  display: flex;
+  position: relative;
+  top: 90vh;
+  height: 100px;
 }
-  50%{
-      width: 75%;
-  }
-  75%{
-      width: 85%;
-  }
-  100%{
-      width: 100%;
-  }
-};
