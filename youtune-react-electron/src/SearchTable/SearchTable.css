@@ -31,3 +31,10 @@ table {
     text-shadow: black 1px 1px 4px;
     cursor: pointer;
   }
+
+  .rowClicked {
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: 0.3s ease;
+    color: #e43838;
+    text-shadow: black 1px 1px 4px;
+  }

@@ -88,6 +88,7 @@ export const HomePage = ({ className, ...props }) => {
           }
           const audio = await get_audio_url.json();
           curr_result.audio_url = audio.audio_url;
+          curr_result.id = i;
           finalResults.push(curr_result);
           setSearchResults([...finalResults]);
         }

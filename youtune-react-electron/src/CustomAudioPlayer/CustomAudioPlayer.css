@@ -1,0 +1,9 @@
+.audioPlayer {
+    width: 100%;
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.player > div, .player > div > audio {
+    width: 100%;
+}

@@ -9,7 +9,7 @@ const CustomAudioPlayer = ({ audioUrl }) => {
     const audioElement = audioRef.current;
     
     // Check if the audio element and its play method are available
-    if (audioElement && audioElement.play) {
+    if (audioElement && audioElement.play && audioUrl) {
       audioElement.load();
       audioElement.play().catch(error => {
         console.error('Error auto-playing audio:', error);
@@ -19,8 +19,7 @@ const CustomAudioPlayer = ({ audioUrl }) => {
 
   return (
     <div>
-      <audio ref={audioRef} controls>
-        <source src={audioUrl} className="audioPlayer" type="audio/webm" />
+      <audio ref={audioRef} className="audioPlayer" src={audioUrl} controls>
         Your browser does not support the audio tag.
       </audio>
     </div>

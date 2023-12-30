@@ -1,7 +1,14 @@
   // SearchResultsTable.js
-  import React from 'react';
+  import React, {useState} from 'react';
   import './SearchTable.css';
   const SearchResultsTable = ({ searchResults, onSongSelect }) => {
+    const [rowClicked, setRowClicked] = useState(null);
+
+    const handleRowClicked = (result) => {
+      setRowClicked(result.id);
+      onSongSelect(result.audio_url);
+    };
+
     return (
       <table>
         <thead>
@@ -12,8 +19,8 @@
           </tr>
         </thead>
         <tbody>
-          {searchResults.map((result, index) => (
-            <tr key={index} className="tableRow" onClick={() => onSongSelect(result.audio_url)}>
+          {searchResults.map((result) => (
+            <tr key={result.id} className={rowClicked===result.id ? 'rowClicked':'tableRow'} onClick={() => handleRowClicked(result)}>
               <td>{result.title}</td>
               <td>{result.artist}</td>
               <td>{result.duration}</td>
