@@ -2,11 +2,14 @@
 import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaSearch, FaTimesCircle } from "react-icons/fa";
+import { FaSearch, FaTimesCircle, FaPlay } from "react-icons/fa";
 import SearchResultsTable from "../SearchTable/SearchTable";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
+
+  //Testing song duration slider
+  const [songProgress, setSongProgress] = useState(30);
 
   const location = useLocation();
   const { token } = location.state || {};
@@ -78,7 +81,9 @@ export const HomePage = ({ className, ...props }) => {
             }
           );
           if (!get_audio_url.ok) {
-            throw new Error("audio url conversion failed for " + curr_result["url"]);
+            throw new Error(
+              "audio url conversion failed for " + curr_result["url"]
+            );
           }
           const audio_url = await get_audio_url.json();
           curr_result.url = audio_url;
@@ -153,11 +158,9 @@ export const HomePage = ({ className, ...props }) => {
       <div className="frame-17">
         <div className="rectangle-1">
           <SearchResultsTable searchResults={searchResult} />
-          {loading && (<div class="loading-bar">
-                        <div class="progress">
-                          <div class="color"></div>
-                        </div>
-                      </div>)}
+          {loading && (
+            <span class="loader"></span>
+          )}
         </div>
       </div>
     </div>
