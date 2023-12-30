@@ -206,3 +206,43 @@
   height: 857px;
   position: relative;
 }
+
+.loading-bar{
+  padding-top: 20px;
+  padding-left: 20px;
+}
+.progress{
+  position: absolute;
+  height: 20px;
+  width: 120px;
+  border: 6px solid #be0000;
+  border-radius: 15px;
+}
+.progress .color{
+  position: absolute;
+  background-color: #ffffff;
+  width: 0px;
+  height: 8px;
+  border-radius: 15px;
+  animation: progres 4s infinite linear;    
+}
+@keyframes progres{
+  0%{
+    width: 0%;
+  }
+  15%{
+      width: 30%;
+  }
+  25%{
+    width: 50%;
+}
+  50%{
+      width: 75%;
+  }
+  75%{
+      width: 85%;
+  }
+  100%{
+      width: 100%;
+  }
+};
