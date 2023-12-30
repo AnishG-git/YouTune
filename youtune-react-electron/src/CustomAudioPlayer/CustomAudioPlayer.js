@@ -19,7 +19,7 @@ const CustomAudioPlayer = ({ audioUrl }) => {
 
   return (
     <div>
-      <audio ref={audioRef} className="audioPlayer" src={audioUrl} controls>
+      <audio ref={audioRef} className="audioPlayer" src={audioUrl} controls loop>
         Your browser does not support the audio tag.
       </audio>
     </div>
