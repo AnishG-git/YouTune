@@ -7,12 +7,10 @@ import SearchResultsTable from "../SearchTable/SearchTable";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
-
   const location = useLocation();
   const { token } = location.state || {};
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  //new line
   const [loading, setLoading] = useState(false);
 
   const clearSearch = () => {
