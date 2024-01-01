@@ -25,7 +25,6 @@ export const LandingPage = () => {
   const navigate = useNavigate();
   const handleLogin = async () => {
     setSuccessMessage("");
-    // Simple validation
     if (!username || !password) {
       setErrorMessage("Please enter both username and password.");
     } else {
@@ -44,14 +43,24 @@ export const LandingPage = () => {
         if (!response.ok) {
           throw new Error("Login failed");
         }
-
-        // Assuming the server responds with a JSON object
         const result = await response.json();
         const token = result["token"];
-        // Perform any further actions based on the result
-        console.log("Login successful, Token: ", token);
+        const getUserData = await fetch(
+          "http://127.0.0.1:8000/api/user-data/",
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Token " + token,
+            },
+          }
+        );
+        if (!getUserData.ok) {
+          throw new Error("failed to fetch user data");
+        }
+        const userData = await getUserData.json();
+        console.log("Login successful");
         setErrorMessage("");
-        navigate("/homepage", { state: { token: token } });
+        navigate("/homepage", { state: { token: token, userData: userData } });
       } catch (error) {
         console.error("Error during login:", error);
         setErrorMessage("Login failed. Please try again.");

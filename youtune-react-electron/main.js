@@ -16,9 +16,7 @@ function createWindow() {
   });
 
   mainWindow.loadURL(
-    isDev
-      ? 'http://localhost:3000' // Load the React app in development mode
-      : `file://${__dirname}/build/index.html` // Load the compiled React app in production
+    isDev ? 'http://localhost:3000':`file://${path.join(__dirname, '../build/index.html')}`
   );
 
   mainWindow.on('closed', () => {

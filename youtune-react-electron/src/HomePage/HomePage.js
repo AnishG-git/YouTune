@@ -9,7 +9,7 @@ import CustomAudioPlayer from "../CustomAudioPlayer/CustomAudioPlayer";
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { token } = location.state || {};
+  const { token, userData } = location.state || {};
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -66,7 +66,7 @@ export const HomePage = ({ className, ...props }) => {
       }
       const incompleteResults = await incompleteSongInfo.json();
       console.log(incompleteResults);
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < incompleteResults.length; i++) {
         if (incompleteResults[i] !== "undefined") {
           const curr_result = incompleteResults[i];
           const get_audio_url = await fetch(
@@ -167,10 +167,6 @@ export const HomePage = ({ className, ...props }) => {
         </div>
       </div>
       <div className="player">
-        {/* <audio controls={true}>
-          <source src={selectedSong} className="audioPlayer" type="audio/webm" />
-          Your browser does not support the audio tag.
-        </audio> */}
         <CustomAudioPlayer audioUrl={selectedSong}/>
       </div>
     </div>

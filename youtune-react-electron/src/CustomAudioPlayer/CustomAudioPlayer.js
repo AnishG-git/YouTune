@@ -5,7 +5,7 @@ const CustomAudioPlayer = ({ audioUrl }) => {
   const audioRef = useRef(null);
   
   useEffect(() => {
-    // Use optional chaining to check if the ref and current property exist
+
     const audioElement = audioRef.current;
     
     // Check if the audio element and its play method are available
