@@ -6,13 +6,12 @@
 
     const handlePlaylistClicked = (playlist) => {
       setPlaylistClicked(playlist.name);
-      onSongSelect(result.audio_url);
     };
 
     return (
-      <table>
+      <table className='playlist-table'>
         <thead>
-          <tr>
+          <tr className='playlist-header'>
             <th>Playlist</th>
             <th>Songs</th>
           </tr>

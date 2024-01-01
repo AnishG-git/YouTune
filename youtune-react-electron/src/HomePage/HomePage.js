@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaSearch, FaTimesCircle, FaPlay } from "react-icons/fa";
+import { IoIosAdd } from "react-icons/io";
 import SearchResultsTable from "../SearchTable/SearchTable";
 import CustomAudioPlayer from "../CustomAudioPlayer/CustomAudioPlayer";
+import PlaylistTable from "../PlaylistTable/PlaylistTable";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
@@ -154,8 +156,13 @@ export const HomePage = ({ className, ...props }) => {
         </div>
       </div>
       <div className="frame-16">
-        <div className="rectangle-22"></div>
-        <div className="playlists">Playlists </div>
+        <div className="rectangle-22">
+          <div className="add-playlist">
+          <IoIosAdd />{" "}
+          </div>
+          <div className="playlists">Playlists</div>
+          <PlaylistTable playlists={userData.playlists} />
+        </div>
       </div>
       <div className="frame-17">
         <div className="rectangle-1">
@@ -167,7 +174,7 @@ export const HomePage = ({ className, ...props }) => {
         </div>
       </div>
       <div className="player">
-        <CustomAudioPlayer audioUrl={selectedSong}/>
+        <CustomAudioPlayer audioUrl={selectedSong} />
       </div>
     </div>
   );
