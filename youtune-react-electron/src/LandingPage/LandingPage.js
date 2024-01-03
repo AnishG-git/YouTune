@@ -60,7 +60,17 @@ export const LandingPage = () => {
         const userData = await getUserData.json();
         console.log("Login successful");
         setErrorMessage("");
-        navigate("/homepage", { state: { token: token, userData: userData } });
+        // Cleaning playlist data to only include playlist names and # of songs in each playlist
+        let cleanedPlaylists = [];
+        for (let i = 0; i < userData.playlists.length; i++) {
+          const nameAndLength = {
+            "name": userData.playlists[i].name,
+            "length": userData.playlists[i].songs.length
+          }
+          cleanedPlaylists.push(nameAndLength);
+        }
+        console.log(cleanedPlaylists);
+        navigate("/homepage", { state: { token: token, userData: userData, cleanedPlaylists: cleanedPlaylists } });
       } catch (error) {
         console.error("Error during login:", error);
         setErrorMessage("Login failed. Please try again.");

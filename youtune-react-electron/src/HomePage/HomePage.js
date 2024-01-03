@@ -7,15 +7,18 @@ import { IoIosAdd } from "react-icons/io";
 import SearchResultsTable from "../SearchTable/SearchTable";
 import CustomAudioPlayer from "../CustomAudioPlayer/CustomAudioPlayer";
 import PlaylistTable from "../PlaylistTable/PlaylistTable";
+import PlaylistModal from "../PlaylistModal/PlaylistModal";
 
 export const HomePage = ({ className, ...props }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { token, userData } = location.state || {};
+  const { token, userData, cleanedPlaylists } = location.state || {};
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedSong, setSelectedSong] = useState(null);
+  const [playlistClicked, setPlaylistClicked] = useState(null);
+  const [showPlaylistModal, setShowPlaylistModal] = useState(false);
 
   const clearSearch = () => {
     setSearchTerm("");
@@ -124,6 +127,16 @@ export const HomePage = ({ className, ...props }) => {
     }
   };
 
+  const handlePlaylistClicked = (cleanedPlaylist) => {
+    setPlaylistClicked(cleanedPlaylist.name);
+    setShowPlaylistModal(true);
+  };
+
+  const handleClosePlaylistModal = () => {
+    setPlaylistClicked(null);
+    setShowPlaylistModal(false);
+  };
+
   return (
     <div className={"dashboard " + className}>
       <div className="frame-9">
@@ -157,11 +170,23 @@ export const HomePage = ({ className, ...props }) => {
       </div>
       <div className="frame-16">
         <div className="rectangle-22">
-          <div className="add-playlist">
-          <IoIosAdd />{" "}
+          <div className="playlists">
+            <div className="playlistTitle">Playlists</div>
+            <div className="add-playlist">
+              <IoIosAdd />{" "}
+            </div>
           </div>
-          <div className="playlists">Playlists</div>
-          <PlaylistTable playlists={userData.playlists} />
+          <PlaylistTable
+            cleanedPlaylists={cleanedPlaylists}
+            onPlaylistClicked={handlePlaylistClicked}
+          />
+          {showPlaylistModal && (
+            <PlaylistModal
+              playlist={playlistClicked}
+              onClose={() => setTimeout(handleClosePlaylistModal, 290)}
+              isActive={showPlaylistModal}
+            />
+          )}
         </div>
       </div>
       <div className="frame-17">

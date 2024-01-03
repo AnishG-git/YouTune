@@ -1,0 +1,45 @@
+/* PlaylistModal.css */
+.playlist-modal {
+    position: absolute;
+    background-color: #393939;
+    color: white;
+    padding: 20px;
+    border-radius: 21px;
+    box-shadow: -10px 0px 7px rgba(0, 0, 0, 0.2);
+    width: 75%;
+    height: 100%;
+    top: 0;
+    left: 25%;
+    right: 0;
+  }
+  
+  /* Add a class to translate the modal back into view */
+  .playlist-modal.active {
+    animation: slide-left 0.3s ease-in-out;
+    overflow: none;
+  }
+
+  .playlist-modal.closed {
+    animation: slide-right 0.3s ease-in-out;
+  }
+
+  @keyframes slide-left {
+    from {
+      transform: translateX(100%);
+    }
+  
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-right {
+    from {
+      transform: translateX(0);
+      
+    }
+
+    to {
+      transform: translateX(100%);
+    }
+  }
