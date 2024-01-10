@@ -34,3 +34,6 @@
 /youtune-react-electron/npm-debug.log*
 /youtune-react-electron/yarn-debug.log*
 /youtune-react-electron/yarn-error.log*
+
+# readme
+/README.md
