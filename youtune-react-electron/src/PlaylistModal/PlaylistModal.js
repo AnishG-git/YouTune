@@ -1,6 +1,8 @@
 // PlaylistModal.js
 import {React, useState} from 'react';
 import './PlaylistModal.css';
+import { IoChevronForwardCircleOutline } from "react-icons/io5";
+
 
 const PlaylistModal = ({ playlist, onClose, isActive, onPlaylistSongSelect, refreshing, refreshingAll }) => {
   const [modalClass, setModalClass] = useState(`playlist-modal ${isActive ? 'active' : 'closed'}`);
@@ -18,7 +20,10 @@ const PlaylistModal = ({ playlist, onClose, isActive, onPlaylistSongSelect, refr
 
   return (
     <div className={modalClass}>
-      <h2>{playlist.name}</h2>
+      <div className='modal-header'>
+        <div className="onClose" onClick={handleClose} align="right"><IoChevronForwardCircleOutline /></div>
+        <h2 className='playlist-title'>{playlist.name}</h2>
+      </div>
       <table>
         <thead>
           <tr>
@@ -42,7 +47,7 @@ const PlaylistModal = ({ playlist, onClose, isActive, onPlaylistSongSelect, refr
         </tbody>
       </table>
       {refreshingAll && <span className="loader"></span>}
-      <button className="onClose" onClick={handleClose}>Close</button>
+      
     </div>
   );
 };

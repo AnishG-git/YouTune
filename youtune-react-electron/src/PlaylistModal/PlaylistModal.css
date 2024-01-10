@@ -17,6 +17,7 @@
   .playlist-modal.active {
     animation: slide-left 0.3s ease-in-out;
     overflow: none;
+
   }
 
   .playlist-modal.closed {
@@ -42,4 +43,29 @@
     to {
       transform: translateX(100%);
     }
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+    padding-bottom: 20px;
+  }
+  
+  .onClose {
+    padding-top: 2%;
+    display: flex;
+    justify-self: flex-end;
+    font-size: 30px;
+    transition: 0.3s ease;
+    cursor: pointer;
+  }
+  .onClose:hover{
+    color:#be0000;
+  }
+  .playlist-title {
+    align-content: center;
+    text-align: center;
+    margin: auto;
+    font-size: 45px;
   }

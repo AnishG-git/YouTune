@@ -193,15 +193,12 @@
 
 .add-playlist{
   display: flex;
-  padding: 1px;
   color:white;
-  justify-content: left;
   font-size: 40px;
   position: absolute;
   left: 90%;
-  top: 2.5%;
-  z-index: 0;
   transition: 0.3s ease;
+  top: -10%;
 }
 
 .add-playlist:hover{
