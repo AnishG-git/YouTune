@@ -6,7 +6,9 @@
 
     const handlePlaylistClicked = (cleanedPlaylist) => {
       // setPlaylistClicked(cleanedPlaylist.name);
+      console.log(cleanedPlaylist);
       onPlaylistClicked(cleanedPlaylist);
+      
     };
 
     return (

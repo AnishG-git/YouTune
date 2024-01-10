@@ -65,7 +65,8 @@ export const LandingPage = () => {
         for (let i = 0; i < userData.playlists.length; i++) {
           const nameAndLength = {
             "name": userData.playlists[i].name,
-            "length": userData.playlists[i].songs.length
+            "length": userData.playlists[i].songs.length,
+            "index": i
           }
           cleanedPlaylists.push(nameAndLength);
         }

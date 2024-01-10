@@ -15,17 +15,46 @@ export const HomePage = ({ className, ...props }) => {
   const { token, userData, cleanedPlaylists } = location.state || {};
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  // loading for search results in SearchTable
   const [loading, setLoading] = useState(false);
-  const [selectedSong, setSelectedSong] = useState(null);
-  const [playlistClicked, setPlaylistClicked] = useState(null);
+
+  // searchTableAudioUrl is only for selected songs from SearchTable
+  const [searchTableAudioUrl, setSearchTableAudioUrl] = useState(null);
+
+  // current song playing if it is in playlist
+  const [playlistSong, setPlaylistSong] = useState(null);
+
+  // boolean to show playlist modal
   const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+
+  // boolean showing whether song clicked is in a playlist or not
+  const [playingPlaylist, setPlayingPlaylist] = useState(false);
+
+  // boolean showing whether playlist is currently refreshing or not
+  const [refreshingAll, setRefreshingAll] = useState(false);
+
+  // index showing which individual playlist song is refreshing
+  const [refreshing, setRefreshing] = useState(-1);
+
+  // useState version of userData for lazy loading
+  const [updatedUserData, setUpdatedUserData] = useState(userData);
+
+  const [playlistClickedIndex, setPlaylistClickedIndex] = useState(null);
+  // index of playlist that was clicked
+//  let playlistClickedIndex = null;
 
   const clearSearch = () => {
     setSearchTerm("");
   };
 
-  const handleSongSelection = (selectedSong) => {
-    setSelectedSong(selectedSong);
+  const searchTableSongSelection = (searchTableSongUrl) => {
+    setPlayingPlaylist(false);
+    setSearchTableAudioUrl(searchTableSongUrl);
+  };
+
+  const playlistSongSelection = (songInfo) => {
+    setPlayingPlaylist(true);
+    setPlaylistSong({ ...songInfo });
   };
 
   const handleChange = (event) => {
@@ -38,6 +67,7 @@ export const HomePage = ({ className, ...props }) => {
     }
   };
 
+  // handleSearch function start ////////////////////////////////////////
   const handleSearch = async () => {
     if (searchTerm === "") {
       console.log("empty query");
@@ -70,7 +100,6 @@ export const HomePage = ({ className, ...props }) => {
         throw new Error("Search failed");
       }
       const incompleteResults = await incompleteSongInfo.json();
-      console.log(incompleteResults);
       for (let i = 0; i < incompleteResults.length; i++) {
         if (incompleteResults[i] !== "undefined") {
           const curr_result = incompleteResults[i];
@@ -94,18 +123,21 @@ export const HomePage = ({ className, ...props }) => {
           const audio = await get_audio_url.json();
           curr_result.audio_url = audio.audio_url;
           curr_result.id = i;
-          finalResults.push(curr_result);
+          if (audio.audio_url !== null) {
+            finalResults.push(curr_result);
+          }
           setSearchResults([...finalResults]);
         }
       }
     } catch (error) {
       console.error("Error during search:", error);
-      // new lines
     } finally {
       setLoading(false);
     }
   };
+  // handleSearch function end ////////////////////////////////////////
 
+  // logout function start ////////////////////////////////////////
   const handleLogout = async () => {
     try {
       const response = await fetch("http://127.0.0.1:8000/api/logout/", {
@@ -126,16 +158,74 @@ export const HomePage = ({ className, ...props }) => {
       console.error("Error during logout:", error);
     }
   };
+  // logout function end ////////////////////////////////////////
 
   const handlePlaylistClicked = (cleanedPlaylist) => {
-    setPlaylistClicked(cleanedPlaylist.name);
-    setShowPlaylistModal(true);
+    setPlaylistClickedIndex(cleanedPlaylist.index);
   };
 
+  useEffect(() => {
+    if (playlistClickedIndex !== null) {
+      setShowPlaylistModal(true);
+    }
+  }, [playlistClickedIndex]);
+
   const handleClosePlaylistModal = () => {
-    setPlaylistClicked(null);
+    setPlaylistClickedIndex(null);
     setShowPlaylistModal(false);
   };
+
+  
+
+  // handleRefresh function start ////////////////////////////////////////
+  const handleRefresh = async () => {
+    setRefreshingAll(true);
+    const playlist = updatedUserData.playlists[playlistClickedIndex];
+    for (let i = 1; i <= playlist.songs.length; i++) {
+      console.log("refreshing:", refreshing);
+      console.log("loop index:", i);
+      const refresh_song = await fetch(
+        "http://127.0.0.1:8000/api/refresh-song/",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Token " + token,
+          },
+          body: JSON.stringify({
+            name: playlist.name,
+            position: i,
+          }),
+        }
+      );
+      if (!refresh_song.ok) {
+        throw new Error(
+          "unable to refresh song in " + playlist.name + " at position " + i
+        );
+      }
+      const { audio_url } = await refresh_song.json();
+      const playlistSongs = userData.playlists[playlistClickedIndex].songs;
+      playlistSongs[i - 1].audio_url = audio_url;
+      if (playlistSongs[playlistSong.position] === i) {
+        setPlaylistSong({ ...playlistSongs[playlistSong.position] });
+      }
+      setUpdatedUserData({ ...userData });
+    }
+    setRefreshingAll(false);
+  };
+  // handleRefresh end ////////////////////////////////////////
+
+  const playNextSong = () => {
+    const playlist = updatedUserData.playlists[playlistClickedIndex];
+    const nextSongIndex = playlistSong.position;
+    if (playlist.songs[nextSongIndex]) {
+      // set song to next song in playlist if it exists
+      setPlaylistSong(playlist.songs[nextSongIndex]);
+    } else {
+      // otherwise loop back to the start of the playlist
+      setPlaylistSong(playlist.songs[0]);
+    }
+  }
 
   return (
     <div className={"dashboard " + className}>
@@ -182,24 +272,36 @@ export const HomePage = ({ className, ...props }) => {
           />
           {showPlaylistModal && (
             <PlaylistModal
-              playlist={playlistClicked}
+              playlist={updatedUserData.playlists[playlistClickedIndex]}
               onClose={() => setTimeout(handleClosePlaylistModal, 290)}
               isActive={showPlaylistModal}
+              onPlaylistSongSelect={playlistSongSelection}
+              refreshing={refreshing}
+              refreshingAll = {refreshingAll}
             />
           )}
+          
         </div>
       </div>
       <div className="frame-17">
         <div className="rectangle-1">
           <SearchResultsTable
             searchResults={searchResults}
-            onSongSelect={handleSongSelection}
+            onSongSelect={searchTableSongSelection}
           />
           {loading && <span className="loader"></span>}
         </div>
       </div>
       <div className="player">
-        <CustomAudioPlayer audioUrl={selectedSong} />
+        <CustomAudioPlayer
+          searchTableAudioUrl={searchTableAudioUrl}
+          playlist={updatedUserData.playlists[playlistClickedIndex]}
+          playingPlaylist={playingPlaylist}
+          handleRefresh={handleRefresh}
+          playlistSongPlaying={playlistSong}
+          refreshing={refreshingAll}
+          playNextSong={playNextSong}
+        />
       </div>
     </div>
   );

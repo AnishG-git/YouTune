@@ -5,7 +5,9 @@
     const [rowClicked, setRowClicked] = useState(null);
 
     const handleRowClicked = (result) => {
+      // to change css
       setRowClicked(result.url);
+      // to pass to CustomAudioPlayer through Homepage
       onSongSelect(result.audio_url);
     };
 

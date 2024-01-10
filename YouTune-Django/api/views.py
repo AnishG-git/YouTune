@@ -1,4 +1,5 @@
 # api/views.py
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -145,6 +146,24 @@ def audio_convert(request):
         return Response({"audio_url": audio_url}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({"error": e}, status=status.HTTP_204_NO_CONTENT)
+    
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def refresh_playlist_song(request):
+    try:
+        user = request.user
+        playlist_name = request.data.get('name')
+        position = request.data.get('position')
+        playlist = get_object_or_404(Playlist, user=user, name=playlist_name)
+        song = playlist.songs.all()[position - 1]
+        audio_url = get_audio_url(song.url)
+        song.audio_url = audio_url
+        song.save()
+        playlist.save()
+
+        return Response({"audio_url": audio_url}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"error": e}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -163,7 +182,7 @@ def add_to_playlist(request):
                 url=url,
                 audio_url = song_info["audio_url"],
                 duration=song_info["duration"], 
-                songwriter=song_info["uploader"],
+                artist=song_info["uploader"],
                 position=num_songs+1,
                 in_playlist=playlist
             )
