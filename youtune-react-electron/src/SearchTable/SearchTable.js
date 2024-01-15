@@ -17,7 +17,7 @@
           <tr>
             <th>Song</th>
             <th>Artist</th>
-            <th>Duration (s)</th>
+            <th>Duration</th>
           </tr>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
             <tr key={result.id} className={rowClicked===result.url ? 'rowClicked':'tableRow'} onClick={() => handleRowClicked(result)}>
               <td>{result.title}</td>
               <td>{result.artist}</td>
-              <td>{result.duration}</td>
+              <td>{Math.floor((result.duration)/60).toString() + ":" + (result.duration % 60).toString().padStart(2, '0')}</td>
             </tr>
           ))}
         </tbody>

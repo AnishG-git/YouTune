@@ -41,10 +41,13 @@ export const HomePage = ({ className, ...props }) => {
 
   const [playlistClickedIndex, setPlaylistClickedIndex] = useState(null);
   // index of playlist that was clicked
-//  let playlistClickedIndex = null;
 
   // State for dropdown visibility
   const [showAddPlaylistDropdown, setShowAddPlaylistDropdown] = useState(false);
+
+  // class name for 
+  const [playlistViewClass, setPlaylistViewClass] = useState(`playlist-view ${showAddPlaylistDropdown ? 'active' : ''}`);
+
   // State for new playlist name
   const [newPlaylistName, setNewPlaylistName] = useState("");
 
@@ -72,6 +75,10 @@ export const HomePage = ({ className, ...props }) => {
     setShowAddPlaylistDropdown((prevShow) => !prevShow);
     setIsRotated((prevRotated) => !prevRotated);
   };
+
+  useEffect(() => {
+    setPlaylistViewClass(`playlist-view ${showAddPlaylistDropdown ? 'active' : ''}`);
+  }, [showAddPlaylistDropdown]);
 
   // addPlaylist functions end ////////////////////////////////////////
 
@@ -289,11 +296,11 @@ export const HomePage = ({ className, ...props }) => {
         </div>
       </div>
       <div className="frame-16">
-        <div className="rectangle-22">
+        <div className={playlistViewClass}>
           <div className="playlists">
             <div className="playlistTitle">Playlists</div>
             <div className={`add-playlist ${isRotated ? 'rotate' : ''}`} onClick={toggleAddPlaylistDropdown}>
-              <IoIosAdd/>
+              <IoIosAdd className={`add-playlist-icon ${isRotated ? 'rotate' : ''}`} />
             </div>
           </div>
           {showAddPlaylistDropdown && (

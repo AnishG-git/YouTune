@@ -29,7 +29,7 @@ const PlaylistModal = ({ playlist, onClose, isActive, onPlaylistSongSelect, refr
           <tr>
             <th>Song</th>
             <th>Artist</th>
-            <th>Duration (s)</th>
+            <th>Duration</th>
             <th>Position</th>
             {/* <th>Loading</th> */}
           </tr>
@@ -39,9 +39,8 @@ const PlaylistModal = ({ playlist, onClose, isActive, onPlaylistSongSelect, refr
             <tr key={songInfo.id} className={rowClicked===songInfo.url ? 'rowClicked':'tableRow'} onClick={() => handleRowClicked(songInfo)}>
               <td>{songInfo.title}</td>
               <td>{songInfo.artist}</td>
-              <td>{songInfo.duration}</td>
+              <td>{Math.floor((songInfo.duration)/60).toString() + ":" + (songInfo.duration % 60).toString().padStart(2, '0')}</td>
               <td>{songInfo.position}</td>
-              {/* <td>{(refreshing === songInfo.position) && <span className="loader"></span>}</td> */}
             </tr>
           ))}
         </tbody>
