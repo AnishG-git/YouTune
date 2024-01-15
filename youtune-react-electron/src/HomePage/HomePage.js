@@ -43,6 +43,38 @@ export const HomePage = ({ className, ...props }) => {
   // index of playlist that was clicked
 //  let playlistClickedIndex = null;
 
+  // State for dropdown visibility
+  const [showAddPlaylistDropdown, setShowAddPlaylistDropdown] = useState(false);
+  // State for new playlist name
+  const [newPlaylistName, setNewPlaylistName] = useState("");
+
+  const [isRotated, setIsRotated] = useState(false);
+
+  // handleSearch functions start ////////////////////////////////////////
+  // Function to handle input change for new playlist name
+  const handleNewPlaylistNameChange = (event) => {
+    setNewPlaylistName(event.target.value);
+  };
+
+  // Function to handle adding a new playlist
+  const handleAddPlaylist = () => {
+    // Add your logic to create a new playlist
+    // You can use the newPlaylistName state here
+    console.log("Adding new playlist:", newPlaylistName);
+
+    // Reset the dropdown visibility and new playlist name
+    setShowAddPlaylistDropdown(false);
+    setNewPlaylistName("");
+    setIsRotated((prevRotated) => !prevRotated);
+  };
+  
+  const toggleAddPlaylistDropdown = () => {
+    setShowAddPlaylistDropdown((prevShow) => !prevShow);
+    setIsRotated((prevRotated) => !prevRotated);
+  };
+
+  // addPlaylist functions end ////////////////////////////////////////
+
   const clearSearch = () => {
     setSearchTerm("");
   };
@@ -260,10 +292,21 @@ export const HomePage = ({ className, ...props }) => {
         <div className="rectangle-22">
           <div className="playlists">
             <div className="playlistTitle">Playlists</div>
-            <div className="add-playlist">
-              <IoIosAdd />{" "}
+            <div className={`add-playlist ${isRotated ? 'rotate' : ''}`} onClick={toggleAddPlaylistDropdown}>
+              <IoIosAdd/>
             </div>
           </div>
+          {showAddPlaylistDropdown && (
+            <div className={`add-playlist-modal ${showAddPlaylistDropdown ? 'active' : 'closed'}`}>
+              <input
+                type="text"
+                placeholder="Enter playlist name"
+                value={newPlaylistName}
+                onChange={handleNewPlaylistNameChange}
+              />
+              <button onClick={handleAddPlaylist}>Add Playlist</button>
+            </div>
+          )}
           <PlaylistTable
             cleanedPlaylists={cleanedPlaylists}
             onPlaylistClicked={handlePlaylistClicked}
