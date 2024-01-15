@@ -199,6 +199,7 @@
   left: 90%;
   transition: 0.3s ease;
   top: -10%;
+  transition: 0.3s ease;
 }
 
 .add-playlist:hover{
@@ -206,6 +207,76 @@
   color: #be0000;
   cursor: pointer;
 }
+
+.add-playlist.rotate {
+  transform: rotate(45deg);
+}
+
+.add-playlist-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%; /* Position the dropdown below the add playlist button */
+  left: 50%; /* Center the dropdown horizontally */
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.4); /* Background color for the dropdown */
+  border-radius: 21px;
+  padding: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for better visibility */
+  z-index: 2; /* Ensure the dropdown appears above other content */
+  transition: transform 0.5s ease;
+}
+
+.add-playlist-modal.active {
+
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut{
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.add-playlist-modal input {
+  font-family: "Outfit";
+  font-size: large;
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  outline: none;
+}
+
+.add-playlist-modal button{
+  background-color: #be0000;
+  font-weight: 800;
+  border: none;
+  margin-left: 15px;
+  font-family: "Outfit";
+  font-size: large;
+  border-radius: 15px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  user-select: none;
+}
+
+.add-playlist-modal button:hover{
+  color: white;
+}
+
 .frame-17 {
   padding: 10px 10px 25px 10px;
   display: flex;
