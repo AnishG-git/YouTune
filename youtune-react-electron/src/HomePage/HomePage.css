@@ -191,7 +191,7 @@
   user-select: none;
 }
 
-.add-playlist{
+.add-playlist {
   display: flex;
   color:white;
   font-size: 40px;
@@ -201,7 +201,7 @@
   top: -10%;
 }
 
-.add-playlist:hover{
+.add-playlist:hover {
   transform: scale(1.3);
   color: #be0000;
   cursor: pointer;

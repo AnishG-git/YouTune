@@ -181,9 +181,7 @@ export const HomePage = ({ className, ...props }) => {
   const handleRefresh = async () => {
     setRefreshingAll(true);
     const playlist = updatedUserData.playlists[playlistClickedIndex];
-    for (let i = 1; i <= playlist.songs.length; i++) {
-      console.log("refreshing:", refreshing);
-      console.log("loop index:", i);
+    for (let i = 1; i <= playlist.songs.length; i++) { 
       const refresh_song = await fetch(
         "http://127.0.0.1:8000/api/refresh-song/",
         {

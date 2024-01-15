@@ -112,7 +112,7 @@ def get_youtube_data(query):
             maxResults=5
         )
         response = request.execute()
-        videos = []
+        songs = []
         for item in response['items']:
             try:
                 video_id = item['id']['videoId']
@@ -126,7 +126,7 @@ def get_youtube_data(query):
                     title = video_info['snippet']['title']
                     artist = video_info['snippet']['channelTitle']
                     url = f'https://youtube.com/watch?v={video_id}'
-                    videos.append({
+                    songs.append({
                         'title': title,
                         'artist': artist,
                         'duration': duration,
@@ -134,7 +134,7 @@ def get_youtube_data(query):
                     })
             except:
                 print(f'Error playing: https://www.youtube.com/watch?v={video_id}')
-        return Response(videos, status=status.HTTP_202_ACCEPTED)
+        return Response(songs, status=status.HTTP_202_ACCEPTED)
     except Exception as e:
         return Response({"error": e}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -154,6 +154,7 @@ def refresh_playlist_song(request):
         user = request.user
         playlist_name = request.data.get('name')
         position = request.data.get('position')
+        print(f'name: {playlist_name}, position: {position}')
         playlist = get_object_or_404(Playlist, user=user, name=playlist_name)
         song = playlist.songs.all()[position - 1]
         audio_url = get_audio_url(song.url)
@@ -163,7 +164,7 @@ def refresh_playlist_song(request):
 
         return Response({"audio_url": audio_url}, status=status.HTTP_200_OK)
     except Exception as e:
-        return Response({"error": e}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"error": str(e)}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
