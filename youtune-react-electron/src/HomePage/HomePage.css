@@ -240,6 +240,8 @@
 
 .add-playlist-icon.rotate {
   color: black;
+  border-radius: 30px;
+  border: 2px solid black;
 }
 
 .add-playlist-icon.rotate:hover {
@@ -263,16 +265,22 @@
   top: 50%; /* Position the dropdown below the add playlist button */
   left: 50%; /* Center the dropdown horizontally */
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 1); /* Background color for the dropdown */
+  background: #2c2c2c;
+  border: 2px solid black;
+  border-width: 2px;
   border-radius: 21px;
   padding: 25px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for better visibility */
   z-index: 2; /* Ensure the dropdown appears above other content */
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
 }
 
 .add-playlist-modal.active {
-  animation: fadeIn 0.5s ease;
+  animation: fadeIn 0.3s ease;
+}
+
+.add-playlist-modal.fade-out {
+  animation: fadeOut 0.3s ease;
 }
 
 @keyframes fadeIn{

@@ -73,12 +73,12 @@ def create_playlist(request):
         try:
             user = request.user
             if Playlist.objects.filter(user=user, name=playlist_name).exists():
-                return Response({"message": "Playlist already exists"})
+                return Response({"result": "Playlist already exists"})
             playlist = Playlist.objects.create(user=user, name=playlist_name)
-            return Response({"message": f"Playlist '{playlist.name}' created successfully"}, status=status.HTTP_201_CREATED)
+            return Response({"result": f"Playlist '{playlist.name}' created successfully"}, status=status.HTTP_201_CREATED)
         except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    return Response({"error": "must pass playlist's name as parameter 'name' in body of request"})
+            return Response({"result": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response({"result": "must pass playlist's name as parameter 'name' in body of request"})
 
 
 @api_view(['DELETE'])

@@ -1,15 +1,7 @@
   // SearchResultsTable.js
   import React, {useState} from 'react';
   import './PlaylistTable.css';
-  const PlaylistTable = ({ cleanedPlaylists, onPlaylistClicked }) => {
-    // const [playlistClicked, setPlaylistClicked] = useState(null);
-
-    const handlePlaylistClicked = (cleanedPlaylist) => {
-      // setPlaylistClicked(cleanedPlaylist.name);
-      console.log(cleanedPlaylist);
-      onPlaylistClicked(cleanedPlaylist);
-      
-    };
+  const PlaylistTable = ({ playlists, onPlaylistClicked }) => {
 
     return (
       <table className='playlist-table'>
@@ -20,10 +12,10 @@
           </tr>
         </thead>
         <tbody>
-          {cleanedPlaylists.map((cleanedPlaylist, index) => (
-            <tr key={index} className="playlistTableRow" onClick={() => handlePlaylistClicked(cleanedPlaylist)}>
-              <td>{cleanedPlaylist.name}</td>
-              <td>{cleanedPlaylist.length}</td>
+          {playlists.map((playlist, index) => (
+            <tr key={index} className="playlistTableRow" onClick={() => onPlaylistClicked(index)}>
+              <td>{playlist.name}</td>
+              <td>{playlist.songs.length}</td>
             </tr>
           ))}
         </tbody>

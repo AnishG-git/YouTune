@@ -45,8 +45,13 @@ export const HomePage = ({ className, ...props }) => {
   // State for dropdown visibility
   const [showAddPlaylistDropdown, setShowAddPlaylistDropdown] = useState(false);
 
-  // class name for 
-  const [playlistViewClass, setPlaylistViewClass] = useState(`playlist-view ${showAddPlaylistDropdown ? 'active' : ''}`);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  // class name for
+  const [playlistViewClass, setPlaylistViewClass] = useState(
+    `playlist-view ${showAddPlaylistDropdown ? "active" : ""} ${
+      isFadingOut ? "fade-out" : ""
+    }`
+  );
 
   // State for new playlist name
   const [newPlaylistName, setNewPlaylistName] = useState("");
@@ -60,24 +65,64 @@ export const HomePage = ({ className, ...props }) => {
   };
 
   // Function to handle adding a new playlist
-  const handleAddPlaylist = () => {
-    // Add your logic to create a new playlist
-    // You can use the newPlaylistName state here
-    console.log("Adding new playlist:", newPlaylistName);
-
-    // Reset the dropdown visibility and new playlist name
-    setShowAddPlaylistDropdown(false);
-    setNewPlaylistName("");
-    setIsRotated((prevRotated) => !prevRotated);
+  const handleAddPlaylist = async () => {
+    console.log(newPlaylistName);
+    if (!newPlaylistName.split("").every((char) => char === " ") && newPlaylistName !== "") {
+      const createPlaylist = await fetch(
+        "http://127.0.0.1:8000/api/make-playlist/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Token " + token
+          },
+          body: JSON.stringify({
+            name: newPlaylistName,
+          }),
+        }
+      );
+      if (!createPlaylist.ok) {
+        throw new Error("failed to create playlist");
+      }
+      const playlistStatus = await createPlaylist.json();
+      console.log(playlistStatus.result);
+      updatedUserData.playlists.push({
+        "name": newPlaylistName,
+        "songs": []
+      });
+      setUpdatedUserData({ ...updatedUserData });
+      setIsFadingOut(true);
+      setShowAddPlaylistDropdown(false);
+      setIsFadingOut(false);
+      setIsRotated((prevRotated) => !prevRotated);
+    } else {
+      console.log("invalid playlist name");
+    }
   };
-  
+  useEffect(() => {
+    console.log(updatedUserData);
+  }, [updatedUserData]);
+
   const toggleAddPlaylistDropdown = () => {
-    setShowAddPlaylistDropdown((prevShow) => !prevShow);
+    if (showAddPlaylistDropdown) {
+      setIsFadingOut(true);
+      setTimeout(() => {
+        setShowAddPlaylistDropdown(false);
+        setIsFadingOut(false);
+      }, 300);
+    } else {
+      setShowAddPlaylistDropdown(true);
+      setIsFadingOut(false);
+    }
     setIsRotated((prevRotated) => !prevRotated);
   };
 
   useEffect(() => {
-    setPlaylistViewClass(`playlist-view ${showAddPlaylistDropdown ? 'active' : ''}`);
+    setPlaylistViewClass(
+      `playlist-view ${showAddPlaylistDropdown ? "active" : ""} ${
+        isFadingOut ? "fade-out" : ""
+      }`
+    );
   }, [showAddPlaylistDropdown]);
 
   // addPlaylist functions end ////////////////////////////////////////
@@ -199,8 +244,8 @@ export const HomePage = ({ className, ...props }) => {
   };
   // logout function end ////////////////////////////////////////
 
-  const handlePlaylistClicked = (cleanedPlaylist) => {
-    setPlaylistClickedIndex(cleanedPlaylist.index);
+  const handlePlaylistClicked = (index) => {
+    setPlaylistClickedIndex(index);
   };
 
   useEffect(() => {
@@ -214,13 +259,11 @@ export const HomePage = ({ className, ...props }) => {
     setShowPlaylistModal(false);
   };
 
-  
-
   // handleRefresh function start ////////////////////////////////////////
   const handleRefresh = async () => {
     setRefreshingAll(true);
     const playlist = updatedUserData.playlists[playlistClickedIndex];
-    for (let i = 1; i <= playlist.songs.length; i++) { 
+    for (let i = 1; i <= playlist.songs.length; i++) {
       const refresh_song = await fetch(
         "http://127.0.0.1:8000/api/refresh-song/",
         {
@@ -262,7 +305,7 @@ export const HomePage = ({ className, ...props }) => {
       // otherwise loop back to the start of the playlist
       setPlaylistSong(playlist.songs[0]);
     }
-  }
+  };
 
   return (
     <div className={"dashboard " + className}>
@@ -299,12 +342,21 @@ export const HomePage = ({ className, ...props }) => {
         <div className={playlistViewClass}>
           <div className="playlists">
             <div className="playlistTitle">Playlists</div>
-            <div className={`add-playlist ${isRotated ? 'rotate' : ''}`} onClick={toggleAddPlaylistDropdown}>
-              <IoIosAdd className={`add-playlist-icon ${isRotated ? 'rotate' : ''}`} />
+            <div
+              className={`add-playlist ${isRotated ? "rotate" : ""}`}
+              onClick={toggleAddPlaylistDropdown}
+            >
+              <IoIosAdd
+                className={`add-playlist-icon ${isRotated ? "rotate" : ""}`}
+              />
             </div>
           </div>
           {showAddPlaylistDropdown && (
-            <div className={`add-playlist-modal ${showAddPlaylistDropdown ? 'active' : 'closed'}`}>
+            <div
+              className={`add-playlist-modal ${
+                showAddPlaylistDropdown ? "active" : "closed"
+              } ${isFadingOut ? "fade-out" : ""}`}
+            >
               <input
                 type="text"
                 placeholder="Enter playlist name"
@@ -315,7 +367,7 @@ export const HomePage = ({ className, ...props }) => {
             </div>
           )}
           <PlaylistTable
-            cleanedPlaylists={cleanedPlaylists}
+            playlists={updatedUserData.playlists}
             onPlaylistClicked={handlePlaylistClicked}
           />
           {showPlaylistModal && (
@@ -325,10 +377,9 @@ export const HomePage = ({ className, ...props }) => {
               isActive={showPlaylistModal}
               onPlaylistSongSelect={playlistSongSelection}
               refreshing={refreshing}
-              refreshingAll = {refreshingAll}
+              refreshingAll={refreshingAll}
             />
           )}
-          
         </div>
       </div>
       <div className="frame-17">
